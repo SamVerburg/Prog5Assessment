@@ -87,8 +87,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Gear.cs" />
     <Compile Include="Model\Item.cs" />
-    <Compile Include="ViewModel\InventoryVM.cs" />
+    <Compile Include="Model\Ninja.cs" />
+    <Compile Include="ViewModel\CharacterListVM.cs" />
+    <Compile Include="ViewModel\GearVM.cs" />
     <Compile Include="ViewModel\ShopVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="InventoryWindow.xaml">

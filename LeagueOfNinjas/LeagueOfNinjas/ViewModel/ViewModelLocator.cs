@@ -17,7 +17,7 @@ namespace LeagueOfNinjas.ViewModel
         {
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
             
-            SimpleIoc.Default.Register<InventoryVM>();
+            SimpleIoc.Default.Register<GearVM>();
             SimpleIoc.Default.Register<ShopVM>();
         }
 
@@ -27,11 +27,11 @@ namespace LeagueOfNinjas.ViewModel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Performance",
             "CA1822:MarkMembersAsStatic",
             Justification = "This non-static member is needed for data binding purposes.")]
-        public InventoryVM InventoryVm
+        public GearVM InventoryVm
         {
             get
             {
-                return ServiceLocator.Current.GetInstance<InventoryVM>();
+                return ServiceLocator.Current.GetInstance<GearVM>();
             }
         }
 

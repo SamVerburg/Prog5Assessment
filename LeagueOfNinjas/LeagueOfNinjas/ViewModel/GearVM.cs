@@ -9,11 +9,11 @@ using LeagueOfNinjas.Model;
 
 namespace LeagueOfNinjas.ViewModel
 {
-    public class InventoryVM : ViewModelBase
+    public class GearVM : ViewModelBase
     {
         public ObservableCollection<Item> Items { get; set; }
 
-        public InventoryVM()
+        public GearVM()
         {
             Items = new ObservableCollection<Item>();
             Items.Add(new Item() {Category = Category.Belt, GoldCost = 200, Name = "Leather Belt"});
