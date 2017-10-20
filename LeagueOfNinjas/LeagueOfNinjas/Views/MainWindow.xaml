@@ -9,9 +9,13 @@
         DataContext="{Binding Ninjas, Source={StaticResource Locator}}">
     <StackPanel>
         <TextBlock>Ninja's</TextBlock>
-        <DataGrid ItemsSource="{Binding Ninjas}"></DataGrid>
-        <Button Content="Update" Click="Button_Click"/>
+        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Ninjas}" SelectedItem="{Binding SelectedNinja, Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Gold" Binding="{Binding Gold}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
         <Button Command="{Binding ShowAddNinja}" Content="Add" />
-        <Button Content="Delete"/>
+        <Button Command="{Binding ShowEditNinja}" Content="Edit" />
     </StackPanel>
 </Window>

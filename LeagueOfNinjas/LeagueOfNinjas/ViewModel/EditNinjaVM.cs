@@ -9,32 +9,31 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-   public class AddNinjaVM : ViewModelBase
-
+   public class EditNinjaVM : ViewModelBase
     {
-        public NinjaVM Ninja { get; set; }
-
-        public ICommand AddCommand { get; set; }
+        public ICommand EditCommand { get; set; }
 
         private NinjaListVM _ninjas;
 
-        public AddNinjaVM(NinjaListVM ninjas)
+        private NinjaVM _selectedNinja;
+
+
+
+        public EditNinjaVM(NinjaVM selectedNinja)
         {
-            _ninjas = ninjas;
-            Ninja = new NinjaVM();
-            AddCommand = new RelayCommand<AddNinjaWindow>(Save);
+            _selectedNinja = selectedNinja;
+            EditCommand = new RelayCommand<EditNinjaWindow>(Edit);
         }
 
-        private void Save(AddNinjaWindow obj)
+        private void Edit(EditNinjaWindow obj)
         {
             using (var context = new LeagueOfNinjasEntities())
             {
-                context.Ninja.Add(Ninja.ToModel());
                 context.SaveChanges();
             }
 
-            _ninjas.Ninjas.Add(Ninja);
             obj.Hide();
         }
     }
 }
+

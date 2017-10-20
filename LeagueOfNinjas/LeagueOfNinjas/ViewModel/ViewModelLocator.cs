@@ -63,6 +63,14 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
+        public EditNinjaVM EditNinja
+        {
+            get
+            {
+                return new EditNinjaVM(_ninjas.SelectedNinja);
+            }
+        }
+
         public NinjaListVM Ninjas
         {
             get
