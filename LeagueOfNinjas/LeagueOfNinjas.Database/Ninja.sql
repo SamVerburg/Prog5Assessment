@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Ninja]
+(
+	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
+    [Naam] VARCHAR(50) NOT NULL, 
+    [Goud] INT NOT NULL
+)
