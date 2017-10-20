@@ -24,11 +24,13 @@ namespace LeagueOfNinjas.ViewModel
     /// </summary>
     public class ViewModelLocator
     {
+        private NinjaListVM _ninjas;
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
         {
+            _ninjas = new NinjaListVM();
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             ////if (ViewModelBase.IsInDesignModeStatic)
@@ -53,11 +55,19 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
+        public AddNinjaVM AddNinja
+        {
+            get
+            {
+                return new AddNinjaVM(_ninjas);
+            }
+        }
+
         public NinjaListVM Ninjas
         {
             get
             {
-                return new NinjaListVM();
+                return _ninjas;
             }
         }
 

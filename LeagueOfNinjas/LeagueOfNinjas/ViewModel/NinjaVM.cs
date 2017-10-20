@@ -9,6 +9,11 @@
             this.n = n;
         }
 
+        public NinjaVM()
+        {
+            n = new Ninja();
+        }
+
         public string Name
         {
             get { return n.Name; }

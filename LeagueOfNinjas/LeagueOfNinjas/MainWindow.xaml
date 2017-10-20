@@ -5,10 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525"
+        Title="Ninja list" Height="350" Width="525"
         DataContext="{Binding Ninjas, Source={StaticResource Locator}}">
     <StackPanel>
         <TextBlock>Ninja's</TextBlock>
         <DataGrid ItemsSource="{Binding Ninjas}"></DataGrid>
+        <Button Content="Update" Click="Button_Click"/>
+        <Button Command="{Binding ShowAddNinja}" Content="Add" />
+        <Button Content="Delete"/>
     </StackPanel>
 </Window>
