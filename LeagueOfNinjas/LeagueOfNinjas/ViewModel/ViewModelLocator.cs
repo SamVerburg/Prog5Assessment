@@ -67,7 +67,7 @@ namespace LeagueOfNinjas.ViewModel
         {
             get
             {
-                return new EditNinjaVM(_ninjas.SelectedNinja);
+                return new EditNinjaVM(_ninjas.SelectedNinja, _ninjas);
             }
         }
 

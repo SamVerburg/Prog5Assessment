@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
+using System.Data.Entity;
 
 namespace LeagueOfNinjas.ViewModel
 {
@@ -17,6 +18,8 @@ namespace LeagueOfNinjas.ViewModel
         public ICommand ShowAddNinja { get; set; }
 
         public ICommand ShowEditNinja { get; set; }
+
+        public ICommand DeleteNinjaCommand { get; set; }
 
         private NinjaVM _selectedNinja;
 
@@ -41,6 +44,18 @@ namespace LeagueOfNinjas.ViewModel
 
             ShowAddNinja = new RelayCommand(ShowAddNinjaWindow);
             ShowEditNinja = new RelayCommand(ShowEditNinjaWindow);
+            DeleteNinjaCommand = new RelayCommand(DeleteNinja);
+        }
+
+        private void DeleteNinja()
+        {
+            using (var context = new LeagueOfNinjasEntities())
+            {
+                context.Entry(SelectedNinja.ToModel()).State = EntityState.Deleted;
+                context.SaveChanges();
+            }
+
+            Ninjas.Remove(SelectedNinja);
         }
 
         private void ShowAddNinjaWindow()
@@ -56,6 +71,10 @@ namespace LeagueOfNinjas.ViewModel
             window.Show();
 
         }
+
+
+
+
 
     }
 }

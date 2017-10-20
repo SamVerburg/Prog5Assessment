@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,29 +12,32 @@ namespace LeagueOfNinjas.ViewModel
 {
    public class EditNinjaVM : ViewModelBase
     {
-        public ICommand EditCommand { get; set; }
 
-        private NinjaListVM _ninjas;
+        public NinjaVM SelectedNinja { get; set; }
 
-        private NinjaVM _selectedNinja;
+        public ICommand UpdateCommand { get; set; }
+
+        private NinjaListVM _ninjaList;
 
 
-
-        public EditNinjaVM(NinjaVM selectedNinja)
+        public EditNinjaVM(NinjaVM selectedNinja, NinjaListVM ninjalist)
         {
-            _selectedNinja = selectedNinja;
-            EditCommand = new RelayCommand<EditNinjaWindow>(Edit);
+            _ninjaList = ninjalist;
+            SelectedNinja = selectedNinja;
+            UpdateCommand = new RelayCommand<EditNinjaWindow>(Update);
         }
 
-        private void Edit(EditNinjaWindow obj)
+        private void Update(EditNinjaWindow obj)
         {
             using (var context = new LeagueOfNinjasEntities())
             {
+                context.Entry(SelectedNinja.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
-
             obj.Hide();
         }
+
+       
     }
 }
 

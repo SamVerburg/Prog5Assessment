@@ -1,9 +1,10 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.ComponentModel;
 
 namespace LeagueOfNinjas.ViewModel
 {
-    public class NinjaVM : ViewModelBase
+    public class NinjaVM : ViewModelBase, INotifyPropertyChanged
     {
         private Ninja n;
 

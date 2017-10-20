@@ -5,8 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas"
         mc:Ignorable="d"
-        Title="EditNinjaWindow" Height="300" Width="300">
-    <Grid>
-        
-    </Grid>
+        Name ="EditNinja"
+        Title="EditNinjaWindow" Height="139.921" Width="300"
+                DataContext="{Binding EditNinja, Source={StaticResource Locator}}">
+    <StackPanel Height="270" VerticalAlignment="Top">
+        <TextBlock>Name</TextBlock>
+        <TextBox Text="{Binding SelectedNinja.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBlock>Starting gold</TextBlock>
+        <TextBox Text="{Binding SelectedNinja.Gold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+        <Button Command="{Binding UpdateCommand}" CommandParameter="{Binding ElementName=EditNinja}">Update</Button>
+    </StackPanel>
 </Window>
