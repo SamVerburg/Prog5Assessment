@@ -14,9 +14,11 @@ namespace LeagueOfNinjas.ViewModel
 
         public NinjaListVM()
         {
-            Ninjas = new ObservableCollection<NinjaVM>();
-            Ninjas.Add(new NinjaVM() { Naam = "Nina"});
-            Ninjas.Add(new NinjaVM() { Naam = "Sam" });
+            using (var context = new LeagueOfNinjasEntities())
+            {
+                var ninjas = context.Ninja.ToList();
+                Ninjas = new ObservableCollection<NinjaVM>(ninjas.Select(n => new NinjaVM(n)));
+            }
         }
     }
 }
