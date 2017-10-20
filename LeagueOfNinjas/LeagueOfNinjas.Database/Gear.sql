@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[Gear]
 (
 	[Id] INT NOT NULL PRIMARY KEY IDENTITY, 
-    [Naam] VARCHAR(50) NOT NULL, 
-    [Prijs] INT NOT NULL, 
-    [Categorie] VARCHAR(50) NOT NULL
+    [Name] VARCHAR(50) NOT NULL, 
+    [Price] INT NOT NULL, 
+    [Category] VARCHAR(50) NOT NULL
 )

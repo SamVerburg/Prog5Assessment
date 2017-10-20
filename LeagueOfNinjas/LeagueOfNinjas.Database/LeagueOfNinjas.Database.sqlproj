@@ -63,4 +63,7 @@
     <Build Include="Gear.sql" />
     <Build Include="Ninja_Gear.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="LeagueOfNinjas.Database.refactorlog" />
+  </ItemGroup>
 </Project>
