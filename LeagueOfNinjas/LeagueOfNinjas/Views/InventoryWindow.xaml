@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas.Views"
         mc:Ignorable="d"
-        Title="InventoryWindow" Height="300" Width="300" DataContext="{Binding NinjaInventory, Source={StaticResource Locator}}">
+        Title="InventoryWindow" Height="300" Width="400" 
+        DataContext="{Binding NinjaInventory, Source={StaticResource Locator}}">
     <StackPanel>
-        <TextBlock>Ninja's</TextBlock>
-        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedNinja}" SelectedItem="{Binding SelectedNinja, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}">
+        <TextBlock>My Inventory</TextBlock>
+        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedNinja.InventoryItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*" />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
@@ -18,7 +19,7 @@
                 <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
-        
-        <Button Command="{Binding LogIn}" Content="Clear"/>
+
+        <Button Command="{Binding ClearInventory, UpdateSourceTrigger=PropertyChanged}" Content="Clear"/>
     </StackPanel>
 </Window>

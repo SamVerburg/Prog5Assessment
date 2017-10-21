@@ -87,11 +87,11 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
-        public NinjaInfoVM NinjaInventory
+        public InventoryVM NinjaInventory
         {
             get
             {
-                return new NinjaInfoVM(_ninjas.SelectedNinja);
+                return new InventoryVM(_ninjas.SelectedNinja);
             }
         }
 
