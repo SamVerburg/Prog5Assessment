@@ -15,7 +15,7 @@ namespace LeagueOfNinjas.ViewModel
 
         public NinjaVM SelectedNinja { get; set; }
 
-        public ICommand UpdateCommand { get; set; }
+        public EditNinjaCommand UpdateCommand { get; set; }
 
         private NinjaListVM _ninjaList;
 
@@ -24,17 +24,21 @@ namespace LeagueOfNinjas.ViewModel
         {
             _ninjaList = ninjalist;
             SelectedNinja = selectedNinja;
-            UpdateCommand = new RelayCommand<EditNinjaWindow>(Update);
+            UpdateCommand = new EditNinjaCommand(ExecuteMethod, CanExecuteMethod);
         }
 
-        private void Update(EditNinjaWindow obj)
+        private bool CanExecuteMethod(object parameter)
+        {
+            return false;
+        }
+
+        private void ExecuteMethod(object parameter)
         {
             using (var context = new LeagueOfNinjasEntities())
             {
                 context.Entry(SelectedNinja.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
-            obj.Hide();
         }
 
        

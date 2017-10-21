@@ -8,11 +8,20 @@
         Name ="EditNinja"
         Title="EditNinjaWindow" Height="139.921" Width="300"
                 DataContext="{Binding EditNinja, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <StackPanel Height="270" VerticalAlignment="Top">
         <TextBlock>Name</TextBlock>
-        <TextBox Text="{Binding SelectedNinja.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Text="{Binding SelectedNinja.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
         <TextBlock>Starting gold</TextBlock>
-        <TextBox Text="{Binding SelectedNinja.Gold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Text="{Binding SelectedNinja.Gold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
 
         <Button Command="{Binding UpdateCommand}" CommandParameter="{Binding ElementName=EditNinja}">Update</Button>
     </StackPanel>

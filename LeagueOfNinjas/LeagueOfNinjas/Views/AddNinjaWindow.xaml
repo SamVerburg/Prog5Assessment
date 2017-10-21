@@ -8,11 +8,20 @@
         Name="AddNinja"
         Title="AddNinjaWindow" Height="140.171" Width="216.239"
         DataContext="{Binding AddNinja, Source={StaticResource Locator}}">
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+</Window.Resources>
     <StackPanel>
         <TextBlock>Name</TextBlock>
-        <TextBox Text="{Binding Ninja.Name}"></TextBox>
+        <TextBox Text="{Binding Ninja.Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
         <TextBlock>Starting gold</TextBlock>
-        <TextBox Text="{Binding Ninja.Gold}"></TextBox>
+        <TextBox Text="{Binding Ninja.Gold, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 
         <Button Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=AddNinja}">Save</Button>
     </StackPanel>

@@ -9,7 +9,7 @@
         DataContext="{Binding Ninjas, Source={StaticResource Locator}}">
     <StackPanel>
         <TextBlock>Ninja's</TextBlock>
-        <DataGrid AutoGenerateColumns="False" ItemsSource="{Binding Ninjas}" SelectedItem="{Binding SelectedNinja, Mode=TwoWay , UpdateSourceTrigger=LostFocus}">
+        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding Ninjas}" SelectedItem="{Binding SelectedNinja, Mode=TwoWay , UpdateSourceTrigger=LostFocus}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
                 <DataGridTextColumn Header="Gold" Binding="{Binding Gold}" Width="*" />

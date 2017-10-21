@@ -22,10 +22,25 @@ namespace LeagueOfNinjas.ViewModel
         {
             _ninjas = ninjas;
             Ninja = new NinjaVM();
-            AddCommand = new RelayCommand<AddNinjaWindow>(Save);
+            AddCommand = new AddNinjaCommand(ExecuteMethod, CanExecuteMethod);
         }
 
-        private void Save(AddNinjaWindow obj)
+        private bool CanExecuteMethod(object parameter)
+        {
+            int ParsedGoldAmount;
+            //Checks whether user can add ninja
+            if (!String.IsNullOrEmpty(Ninja.Name) &&  Int32.TryParse(Ninja.Gold.ToString(), out ParsedGoldAmount))
+            {
+                if(ParsedGoldAmount > 0)
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+
+        private void ExecuteMethod(object parameter)
         {
             using (var context = new LeagueOfNinjasEntities())
             {
@@ -34,7 +49,6 @@ namespace LeagueOfNinjas.ViewModel
             }
 
             _ninjas.Ninjas.Add(Ninja);
-            obj.Hide();
         }
     }
 }

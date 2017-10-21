@@ -19,6 +19,7 @@ namespace LeagueOfNinjas.ViewModel
 
         public ICommand ShowEditNinja { get; set; }
 
+        //make DeleteNinjaCommand.cs
         public ICommand DeleteNinjaCommand { get; set; }
 
         private NinjaVM _selectedNinja;
