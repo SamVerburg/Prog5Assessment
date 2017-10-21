@@ -1,12 +1,16 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 
 namespace LeagueOfNinjas.ViewModel
 {
     public class NinjaVM : ViewModelBase, INotifyPropertyChanged, IDataErrorInfo
     {
         private Ninja n;
+
+        public ObservableCollection<ItemVM> InventoryItems { get; set; }
 
         public NinjaVM(Ninja n)
         {
@@ -25,7 +29,15 @@ namespace LeagueOfNinjas.ViewModel
             {
                 n.Name = value;
                 OnPropertyChanged("Name");
-                RaisePropertyChanged();
+
+                using (var context = new LeagueOfNinjasEntities())
+                {
+                    var inventoryItems = n.Gear.ToList();
+
+                    //Retrieve Ninja's inventory Items
+                    InventoryItems = new ObservableCollection<ItemVM>(inventoryItems.Select(g => new ItemVM(g)));
+                }
+
             }
         }
 

@@ -24,6 +24,9 @@ namespace LeagueOfNinjas
         public string Name { get; set; }
         public int Price { get; set; }
         public string Category { get; set; }
+        public Nullable<int> Strength { get; set; }
+        public Nullable<int> Intelligence { get; set; }
+        public Nullable<int> Agility { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ninja> Ninja { get; set; }

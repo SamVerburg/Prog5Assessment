@@ -13,6 +13,9 @@
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="int" Nullable="false" />
           <Property Name="Category" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Strength" Type="int" />
+          <Property Name="Intelligence" Type="int" />
+          <Property Name="Agility" Type="int" />
         </EntityType>
         <EntityType Name="Ninja">
           <Key>
@@ -80,6 +83,9 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Int32" Nullable="false" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Strength" Type="Int32" />
+          <Property Name="Intelligence" Type="Int32" />
+          <Property Name="Agility" Type="Int32" />
         </EntityType>
         <EntityType Name="Ninja">
           <Key>
@@ -111,6 +117,9 @@
           <EntitySetMapping Name="Gear">
             <EntityTypeMapping TypeName="LeagueOfNinjasModel.Gear">
               <MappingFragment StoreEntitySet="Gear">
+                <ScalarProperty Name="Agility" ColumnName="Agility" />
+                <ScalarProperty Name="Intelligence" ColumnName="Intelligence" />
+                <ScalarProperty Name="Strength" ColumnName="Strength" />
                 <ScalarProperty Name="Category" ColumnName="Category" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

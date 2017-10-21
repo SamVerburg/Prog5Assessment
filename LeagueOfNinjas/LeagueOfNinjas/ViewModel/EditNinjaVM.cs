@@ -10,7 +10,7 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-   public class EditNinjaVM : ViewModelBase
+    public class EditNinjaVM : ViewModelBase
     {
 
         public NinjaVM SelectedNinja { get; set; }
@@ -29,6 +29,14 @@ namespace LeagueOfNinjas.ViewModel
 
         private bool CanExecuteMethod(object parameter)
         {
+            //Checks whether user can edit ninja
+            if (SelectedNinja != null)
+            {
+                if (!String.IsNullOrEmpty(SelectedNinja.Name) && SelectedNinja.Gold >0)
+                {
+                        return true;
+                }
+            }
             return false;
         }
 
@@ -39,9 +47,10 @@ namespace LeagueOfNinjas.ViewModel
                 context.Entry(SelectedNinja.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
+             
         }
 
-       
+
     }
 }
 

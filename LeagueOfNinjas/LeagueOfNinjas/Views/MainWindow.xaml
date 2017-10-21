@@ -18,5 +18,6 @@
         <Button Command="{Binding ShowAddNinja}" Content="Add" />
         <Button Command="{Binding ShowEditNinja}" Content="Edit" />
         <Button Content="Delete"  Command="{Binding DeleteNinjaCommand}"/>
+        <Button Command="{Binding ShowNinjaInfo}" Content="Log in"/>
     </StackPanel>
 </Window>

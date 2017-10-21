@@ -27,15 +27,10 @@ namespace LeagueOfNinjas.ViewModel
 
         private bool CanExecuteMethod(object parameter)
         {
-            int ParsedGoldAmount;
             //Checks whether user can add ninja
-            if (!String.IsNullOrEmpty(Ninja.Name) &&  Int32.TryParse(Ninja.Gold.ToString(), out ParsedGoldAmount))
+            if (!String.IsNullOrEmpty(Ninja.Name) &&  Ninja.Gold > 0)
             {
-                if(ParsedGoldAmount > 0)
-                {
                     return true;
-                }
-
             }
             return false;
         }

@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight;
 using System.Windows.Input;
 using GalaSoft.MvvmLight.Command;
 using System.Data.Entity;
+using LeagueOfNinjas.Views;
 
 namespace LeagueOfNinjas.ViewModel
 {
@@ -18,6 +19,8 @@ namespace LeagueOfNinjas.ViewModel
         public ICommand ShowAddNinja { get; set; }
 
         public ICommand ShowEditNinja { get; set; }
+
+        public ICommand ShowNinjaInfo { get; set; }
 
         //make DeleteNinjaCommand.cs
         public ICommand DeleteNinjaCommand { get; set; }
@@ -46,6 +49,13 @@ namespace LeagueOfNinjas.ViewModel
             ShowAddNinja = new RelayCommand(ShowAddNinjaWindow);
             ShowEditNinja = new RelayCommand(ShowEditNinjaWindow);
             DeleteNinjaCommand = new RelayCommand(DeleteNinja);
+            ShowNinjaInfo = new RelayCommand(ShowNinjaInfoWindow);
+        }
+
+        private void ShowNinjaInfoWindow()
+        {
+            var window = new NinjaInfoWindow();
+            window.Show();
         }
 
         private void DeleteNinja()
