@@ -5,25 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas.Views"
         mc:Ignorable="d"
-        Title="NinjaInfoWindow" Height="300" Width="300"
+        Title="NinjaInfoWindow" Height="209.816" Width="300"
          DataContext="{Binding NinjaInfo, Source={StaticResource Locator}}">
     <StackPanel>
-        <Label>Name:</Label>
-        <Label Content="{Binding SelectedNinja.Name}"></Label>
+        <StackPanel Orientation="Horizontal">
+            <Label Width="105">Name:</Label>
+            <Label Content="{Binding SelectedNinja.Name}"></Label>
 
-        <Label>Gold amount:</Label>
-        <Label Content="{Binding SelectedNinja.Gold}"></Label>
-        
-        <Label>Statistics</Label>
-        <Label>Strength</Label>
-        <Label Content="{Binding Strength}"></Label>
-        <Label>Intelligence</Label>
-        <Label Content="{Binding Intelligence}"></Label>
-        <Label>Agility</Label>
-        <Label Content="{Binding Agility}"></Label>
-        
-        <Button Content="Open Inventory"/>
-        <Button Content="Go to shop"/>
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Width="105">Gold amount:</Label>
+            <Label Content="{Binding SelectedNinja.Gold}"></Label>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Label Width="105">Total Strength:</Label>
+            <Label Content="{Binding Strength}"></Label>
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Width="105">Total Intelligence:</Label>
+            <Label Content="{Binding Intelligence}"></Label>
+
+        </StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Label Width="105">Total Agility:</Label>
+            <Label Content="{Binding Agility}"></Label>
+        </StackPanel>
+
+        <Button Command="{Binding ShowInventoryCommand}" Content="Open Inventory"/>
+        <Button Command="{Binding ShowShopCommand}" Content="Go to shop"/>
 
 
     </StackPanel>

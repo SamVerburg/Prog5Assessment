@@ -1,0 +1,24 @@
+﻿<Window x:Class="LeagueOfNinjas.Views.InventoryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LeagueOfNinjas.Views"
+        mc:Ignorable="d"
+        Title="InventoryWindow" Height="300" Width="300" DataContext="{Binding NinjaInventory, Source={StaticResource Locator}}">
+    <StackPanel>
+        <TextBlock>Ninja's</TextBlock>
+        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedNinja}" SelectedItem="{Binding SelectedNinja, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*" />
+                <DataGridTextColumn Header="Strength" Binding="{Binding Strength}" Width="*" />
+                <DataGridTextColumn Header="Agility" Binding="{Binding Agility}" Width="*" />
+                <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+        
+        <Button Command="{Binding LogIn}" Content="Clear"/>
+    </StackPanel>
+</Window>

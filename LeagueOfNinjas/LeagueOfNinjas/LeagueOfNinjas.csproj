@@ -88,6 +88,7 @@
     </ApplicationDefinition>
     <Compile Include="ViewModel\Commands\AddNinjaCommand.cs" />
     <Compile Include="ViewModel\Commands\EditNinjaCommand.cs" />
+    <Compile Include="ViewModel\InventoryVM.cs" />
     <Compile Include="ViewModel\ItemVM.cs" />
     <Compile Include="ViewModel\Commands\LogInCommand.cs" />
     <Compile Include="ViewModel\NinjaInfoVM.cs" />
@@ -124,14 +125,24 @@
     <Compile Include="ViewModel\NinjaListVM.cs" />
     <Compile Include="ViewModel\NinjaVM.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Views\InventoryWindow.xaml.cs">
+      <DependentUpon>InventoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\NinjaInfoWindow.xaml.cs">
       <DependentUpon>NinjaInfoWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShopWindow.xaml.cs">
+      <DependentUpon>ShopWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\AddNinjaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\EditNinjaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InventoryWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -148,6 +159,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\NinjaInfoWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShopWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
