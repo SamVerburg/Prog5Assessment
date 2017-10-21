@@ -32,10 +32,7 @@ namespace LeagueOfNinjas.ViewModel
 
                 using (var context = new LeagueOfNinjasEntities())
                 {
-                    var inventoryItems = n.Gear.ToList();
-
-                    //Retrieve Ninja's inventory Items
-                    InventoryItems = new ObservableCollection<ItemVM>(inventoryItems.Select(g => new ItemVM(g)));
+                    //Retrieve gear of selected ninja.
                 }
 
             }

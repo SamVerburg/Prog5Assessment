@@ -79,6 +79,14 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
+        public NinjaInfoVM NinjaInfo
+        {
+            get
+            {
+                return new NinjaInfoVM(_ninjas.SelectedNinja);
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

@@ -7,20 +7,32 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-    class NinjaInfoVM
+    public class NinjaInfoVM
     {
         public NinjaVM SelectedNinja { get; set; }
+        public int Strength { get; set; }
+        public int Intelligence { get; set; }
+        public int Agility { get; set; }
+        //public ICommand ShowInventoryCommand;
 
-        private NinjaListVM _ninjaList;
-
-        public ICommand ShowInventoryCommand;
-
-        public NinjaInfoVM(NinjaListVM ninjaList)
+        public NinjaInfoVM(NinjaVM selectedNinja)
         {
-            _ninjaList = ninjaList;
-            SelectedNinja = _ninjaList.SelectedNinja;
+            this.SelectedNinja = selectedNinja;
+           // CalculateStats();
 
             //ShowInventoryCommand = new RelayCommand();
+        }
+
+        private void CalculateStats()
+        {
+            List<ItemVM> statCalculator = SelectedNinja.InventoryItems.ToList();
+            foreach (var i in statCalculator)
+            {
+                Strength += i.Strength;
+                Intelligence += i.Intelligence;
+                Agility += i.Agility;
+            }
+
         }
     }
 }

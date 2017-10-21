@@ -86,9 +86,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel\AddNinjaCommand.cs" />
-    <Compile Include="ViewModel\EditNinjaCommand.cs" />
+    <Compile Include="ViewModel\Commands\AddNinjaCommand.cs" />
+    <Compile Include="ViewModel\Commands\EditNinjaCommand.cs" />
     <Compile Include="ViewModel\ItemVM.cs" />
+    <Compile Include="ViewModel\Commands\LogInCommand.cs" />
     <Compile Include="ViewModel\NinjaInfoVM.cs" />
     <Compile Include="Views\AddNinjaWindow.xaml.cs">
       <DependentUpon>AddNinjaWindow.xaml</DependentUpon>

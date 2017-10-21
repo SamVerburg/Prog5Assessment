@@ -5,8 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas.Views"
         mc:Ignorable="d"
-        Title="NinjaInfoWindow" Height="300" Width="300">
-    <Grid>
+        Title="NinjaInfoWindow" Height="300" Width="300"
+         DataContext="{Binding NinjaInfo, Source={StaticResource Locator}}">
+    <StackPanel>
+        <Label>Name:</Label>
+        <Label Content="{Binding SelectedNinja.Name}"></Label>
+
+        <Label>Gold amount:</Label>
+        <Label Content="{Binding SelectedNinja.Gold}"></Label>
         
-    </Grid>
+        <Label>Statistics</Label>
+        <Label Content="{Binding SelectedNinja.Gold}"></Label>
+        <Label Content="{Binding SelectedNinja.Gold}"></Label>
+        <Label Content="{Binding SelectedNinja.Gold}"></Label>
+        
+        <Button Content="Open Inventory"/>
+        <Button Content="Go to shop"/>
+
+
+    </StackPanel>
 </Window>

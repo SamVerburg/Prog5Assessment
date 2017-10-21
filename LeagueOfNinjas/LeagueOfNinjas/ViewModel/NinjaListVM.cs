@@ -20,10 +20,9 @@ namespace LeagueOfNinjas.ViewModel
 
         public ICommand ShowEditNinja { get; set; }
 
-        public ICommand ShowNinjaInfo { get; set; }
-
-        //make DeleteNinjaCommand.cs
         public ICommand DeleteNinjaCommand { get; set; }
+
+        public LogInCommand LogIn { get; set; }
 
         private NinjaVM _selectedNinja;
 
@@ -49,13 +48,7 @@ namespace LeagueOfNinjas.ViewModel
             ShowAddNinja = new RelayCommand(ShowAddNinjaWindow);
             ShowEditNinja = new RelayCommand(ShowEditNinjaWindow);
             DeleteNinjaCommand = new RelayCommand(DeleteNinja);
-            ShowNinjaInfo = new RelayCommand(ShowNinjaInfoWindow);
-        }
-
-        private void ShowNinjaInfoWindow()
-        {
-            var window = new NinjaInfoWindow();
-            window.Show();
+            LogIn = new LogInCommand(ExecuteMethod, CanExecuteMethod);
         }
 
         private void DeleteNinja()
@@ -67,6 +60,23 @@ namespace LeagueOfNinjas.ViewModel
             }
 
             Ninjas.Remove(SelectedNinja);
+        }
+
+        //Validation for logging in
+        private bool CanExecuteMethod(object parameter)
+        {
+            if (SelectedNinja != null)
+            {
+                return true;
+            }
+            return false;
+
+        }
+
+        private void ExecuteMethod(object parameter)
+        {
+            var window = new NinjaInfoWindow();
+            window.Show();
         }
 
         private void ShowAddNinjaWindow()
