@@ -20,17 +20,17 @@
 
         <StackPanel Orientation="Horizontal">
             <Label Width="105">Total Strength:</Label>
-            <Label Content="{Binding Strength}"></Label>
+            <Label Content="{Binding Strength, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"></Label>
 
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Width="105">Total Intelligence:</Label>
-            <Label Content="{Binding Intelligence}"></Label>
+            <Label Content="{Binding Intelligence, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"></Label>
 
         </StackPanel>
         <StackPanel Orientation="Horizontal">
             <Label Width="105">Total Agility:</Label>
-            <Label Content="{Binding Agility}"></Label>
+            <Label Content="{Binding Agility, Mode=TwoWay , UpdateSourceTrigger=PropertyChanged}"></Label>
         </StackPanel>
 
         <Button Command="{Binding ShowInventoryCommand}" Content="Open Inventory"/>

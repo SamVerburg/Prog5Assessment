@@ -1,4 +1,5 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using LeagueOfNinjas.Views;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,13 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-    public class NinjaInfoVM
+    public class NinjaInfoVM : ViewModelBase
     {
         public NinjaVM SelectedNinja { get; set; }
-        public int Strength { get; set; }
-        public int Intelligence { get; set; }
         public int Agility { get; set; }
+        public int Intelligence { get; set; }
+        public int Strength { get; set; }
+
 
         public ICommand ShowInventoryCommand { get; set; }
 
@@ -23,7 +25,10 @@ namespace LeagueOfNinjas.ViewModel
         public NinjaInfoVM(NinjaVM selectedNinja)
         {
             this.SelectedNinja = selectedNinja;
-            CalculateStats();
+
+            Agility = selectedNinja.Agility;
+            Intelligence = selectedNinja.Intelligence;
+            Strength = selectedNinja.Strength;
 
             ShowInventoryCommand = new RelayCommand(ShowInventoryWindow);
             ShowShopCommand = new RelayCommand(ShowShopWindow);
@@ -42,17 +47,8 @@ namespace LeagueOfNinjas.ViewModel
             var window = new InventoryWindow();
             window.Show();
         }
-        
 
-        private void CalculateStats()
-        {
-            foreach (var i in SelectedNinja.InventoryItems)
-            {
-                Strength += i.Strength;
-                Intelligence += i.Intelligence;
-                Agility += i.Agility;
-            }
 
-        }
+     
     }
 }

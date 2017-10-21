@@ -9,14 +9,14 @@
         DataContext="{Binding NinjaInventory, Source={StaticResource Locator}}">
     <StackPanel>
         <TextBlock>My Inventory</TextBlock>
-        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedNinja.InventoryItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding InventoryItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*" />
-                <DataGridTextColumn Header="Strength" Binding="{Binding Strength}" Width="*" />
-                <DataGridTextColumn Header="Agility" Binding="{Binding Agility}" Width="*" />
-                <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence}" Width="*" />
+                <DataGridTextColumn Header="Category" Binding="{Binding Category,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Price" Binding="{Binding Price,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Strength" Binding="{Binding Strength,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Agility" Binding="{Binding Agility,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
             </DataGrid.Columns>
         </DataGrid>
 

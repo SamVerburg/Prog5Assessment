@@ -17,7 +17,7 @@ namespace LeagueOfNinjas.ViewModel
             this.n = n;
 
             this.InventoryItems = new ObservableCollection<ItemVM>();
-           foreach(Gear g in n.Gear)
+            foreach (Gear g in n.Gear)
             {
                 InventoryItems.Add(new ItemVM(g));
             }
@@ -35,7 +35,7 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
-       
+
 
         public string Name
         {
@@ -57,6 +57,61 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
+        //Statistics
+
+        public int Strength
+        {
+            get
+            {
+                int value = 0;
+                foreach (var i in InventoryItems)
+                {
+                    value += i.Strength;
+                }
+                return value;
+            }
+            set
+            {
+                Strength = value;
+                OnPropertyChanged("Strength");
+            }
+        }
+
+        public int Agility
+        {
+            get {
+                int value = 0;
+                foreach (var i in InventoryItems)
+                {
+                    value += i.Agility;
+                }
+                return value;
+            }
+            set
+            {
+                Agility = value;
+                OnPropertyChanged("Agility");
+            }
+        }
+
+
+        public int Intelligence
+        {
+            get {
+                int value = 0;
+                foreach (var i in InventoryItems)
+                {
+                    value += i.Intelligence;
+                }
+                return value;
+            }
+            set
+            {
+                Intelligence = value;
+                OnPropertyChanged("Intelligence");
+            }
+        }
+
         //IDataErrorInfo
         public string Error
         {
@@ -71,10 +126,11 @@ namespace LeagueOfNinjas.ViewModel
 
         public string this[string PropertyName]
         {
-            get {           
+            get
+            {
                 string result = String.Empty;
 
-                switch(PropertyName)
+                switch (PropertyName)
                 {
                     case "Name":
                         if (string.IsNullOrEmpty(Name))
@@ -85,9 +141,9 @@ namespace LeagueOfNinjas.ViewModel
                         int ParsedGold;
                         bool correctInput = Int32.TryParse(Gold.ToString(), out ParsedGold);
                         if (String.IsNullOrEmpty(Gold.ToString()) || ParsedGold < 1 || !correctInput)
-                            {
-                                result = "Please enter more than 0 gold";
-                            }
+                        {
+                            result = "Please enter more than 0 gold";
+                        }
                         break;
 
                 }
