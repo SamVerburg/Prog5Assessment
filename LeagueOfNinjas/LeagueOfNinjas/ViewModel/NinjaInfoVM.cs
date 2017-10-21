@@ -18,15 +18,14 @@ namespace LeagueOfNinjas.ViewModel
         public NinjaInfoVM(NinjaVM selectedNinja)
         {
             this.SelectedNinja = selectedNinja;
-           // CalculateStats();
-
+            CalculateStats();
+        
             //ShowInventoryCommand = new RelayCommand();
         }
 
         private void CalculateStats()
         {
-            List<ItemVM> statCalculator = SelectedNinja.InventoryItems.ToList();
-            foreach (var i in statCalculator)
+            foreach (var i in SelectedNinja.InventoryItems)
             {
                 Strength += i.Strength;
                 Intelligence += i.Intelligence;

@@ -15,12 +15,27 @@ namespace LeagueOfNinjas.ViewModel
         public NinjaVM(Ninja n)
         {
             this.n = n;
+
+            this.InventoryItems = new ObservableCollection<ItemVM>();
+           foreach(Gear g in n.Gear)
+            {
+                InventoryItems.Add(new ItemVM(g));
+            }
+
         }
 
         public NinjaVM()
         {
             n = new Ninja();
+
+            this.InventoryItems = new ObservableCollection<ItemVM>();
+            foreach (Gear g in n.Gear)
+            {
+                InventoryItems.Add(new ItemVM(g));
+            }
         }
+
+       
 
         public string Name
         {
@@ -29,12 +44,6 @@ namespace LeagueOfNinjas.ViewModel
             {
                 n.Name = value;
                 OnPropertyChanged("Name");
-
-                using (var context = new LeagueOfNinjasEntities())
-                {
-                    //Retrieve gear of selected ninja.
-                }
-
             }
         }
 
