@@ -20,6 +20,6 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Command="{Binding ClearInventory, UpdateSourceTrigger=PropertyChanged}" Content="Clear"/>
+        <Button Command="{Binding ClearInventory, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Content="Clear"/>
     </StackPanel>
 </Window>

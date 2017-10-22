@@ -95,6 +95,14 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
+        public ShopVM Shop
+        {
+            get
+            {
+                return new ShopVM(_ninjas.SelectedNinja);
+            }
+        }
+
         public static void Cleanup()
         {
             // TODO Clear the ViewModels

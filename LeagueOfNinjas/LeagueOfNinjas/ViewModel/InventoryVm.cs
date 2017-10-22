@@ -1,4 +1,6 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using LeagueOfNinjas.ViewModel.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,56 +12,79 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-   public class InventoryVM
+   public class InventoryVM : ViewModelBase
     {
-        private NinjaVM _selectedNinja;
+        public NinjaVM SelectedNinja;
 
         public ObservableCollection<ItemVM> InventoryItems { get; set; }
 
 
-        public ICommand ClearInventory { get; set; }
+        public ClearInventoryCommand ClearInventory { get; set; }
 
 
         public InventoryVM(NinjaVM selectedNinja)
         {
-            _selectedNinja = selectedNinja;
+            SelectedNinja = selectedNinja;
 
-            InventoryItems = _selectedNinja.InventoryItems;
+            InventoryItems = SelectedNinja.InventoryItems;
 
-            ClearInventory = new RelayCommand(Clear,CanClear);
+            ClearInventory = new ClearInventoryCommand(ExecuteMethod, CanExecuteMethod);
+
+            UpdateStats();
 
         }
 
-        private bool CanClear()
+        private bool CanExecuteMethod(object parameter)
         {
-            if(_selectedNinja.InventoryItems.Count > 0)
+            if(SelectedNinja.InventoryItems.Count > 0)
             {
                 return true;
             }
             return false;
         }
 
-        private void Clear()
+        private void ExecuteMethod(object parameter)
         {
-
-            foreach (var item in _selectedNinja.InventoryItems)
+            int moneyBack = 0;
+            int id = SelectedNinja.ToModel().Id;
+            foreach (var item in SelectedNinja.InventoryItems)
             {
-                _selectedNinja.Gold += item.Price;
-
-                using (var context = new LeagueOfNinjasEntities())
+                using (var ctx = new LeagueOfNinjasEntities())
                 {
+                    Ninja ninja = (from n in ctx.Ninja
+                                   where n.Id == id
+                                   select n).FirstOrDefault<Ninja>();
 
-                    context.Entry(_selectedNinja.ToModel()).State = EntityState.Modified;
+                    Gear gear = ninja.Gear.FirstOrDefault<Gear>();
 
-                    context.SaveChanges();
+                    //removing item from ninja
+                    ninja.Gear.Remove(gear);
+                    moneyBack += item.Price;
+                    ninja.Gold += moneyBack;
+
+                    ctx.SaveChanges();
                 }
+                SelectedNinja.Gold += moneyBack;
             }
-            _selectedNinja.InventoryItems.Clear();
 
+          
 
-
+            SelectedNinja.InventoryItems.Clear();
+            UpdateStats();           
         }
 
+        private void UpdateStats()
+        {
+            SelectedNinja.Intelligence = 0;
+            SelectedNinja.Strength = 0;
+            SelectedNinja.Agility = 0;
 
+            foreach (var i in InventoryItems)
+            {
+                SelectedNinja.Intelligence += i.Intelligence;
+                SelectedNinja.Strength += i.Strength;
+                SelectedNinja.Agility += i.Agility;
+            }
+        }
     }
 }

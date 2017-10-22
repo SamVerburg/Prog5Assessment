@@ -3,6 +3,7 @@ using GalaSoft.MvvmLight.Command;
 using LeagueOfNinjas.Views;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,13 +11,9 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-    public class NinjaInfoVM : ViewModelBase
+    public class NinjaInfoVM : ViewModelBase, INotifyPropertyChanged
     {
         public NinjaVM SelectedNinja { get; set; }
-        public int Agility { get; set; }
-        public int Intelligence { get; set; }
-        public int Strength { get; set; }
-
 
         public ICommand ShowInventoryCommand { get; set; }
 
@@ -26,12 +23,10 @@ namespace LeagueOfNinjas.ViewModel
         {
             this.SelectedNinja = selectedNinja;
 
-            Agility = selectedNinja.Agility;
-            Intelligence = selectedNinja.Intelligence;
-            Strength = selectedNinja.Strength;
-
             ShowInventoryCommand = new RelayCommand(ShowInventoryWindow);
             ShowShopCommand = new RelayCommand(ShowShopWindow);
+
+
 
 
         }
@@ -48,7 +43,9 @@ namespace LeagueOfNinjas.ViewModel
             window.Show();
         }
 
+      
 
-     
+
+
     }
 }

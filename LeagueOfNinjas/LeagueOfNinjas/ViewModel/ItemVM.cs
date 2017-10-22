@@ -53,7 +53,7 @@ namespace LeagueOfNinjas.ViewModel
         }
         public int Strength
         {
-            get { return g.Strength.Value; }
+            get { return g.Strength; }
             set
             {
                 g.Strength = value;
@@ -63,7 +63,7 @@ namespace LeagueOfNinjas.ViewModel
 
         public int Intelligence
         {
-            get { return g.Intelligence.Value; }
+            get { return g.Intelligence; }
             set
             {
                 g.Intelligence = value;
@@ -72,7 +72,7 @@ namespace LeagueOfNinjas.ViewModel
         }
         public int Agility
         {
-            get { return g.Agility.Value; }
+            get { return g.Agility; }
             set
             {
                 g.Agility = value;

@@ -13,9 +13,9 @@
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Price" Type="int" Nullable="false" />
           <Property Name="Category" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Strength" Type="int" />
-          <Property Name="Intelligence" Type="int" />
-          <Property Name="Agility" Type="int" />
+          <Property Name="Intelligence" Type="int" Nullable="false" />
+          <Property Name="Strength" Type="int" Nullable="false" />
+          <Property Name="Agility" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Ninja">
           <Key>
@@ -24,6 +24,9 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Gold" Type="int" Nullable="false" />
+          <Property Name="Intelligence" Type="int" Nullable="false" />
+          <Property Name="Strength" Type="int" Nullable="false" />
+          <Property Name="Agility" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Ninja_Gear">
           <Key>
@@ -83,9 +86,9 @@
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Price" Type="Int32" Nullable="false" />
           <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Strength" Type="Int32" />
-          <Property Name="Intelligence" Type="Int32" />
-          <Property Name="Agility" Type="Int32" />
+          <Property Name="Strength" Type="Int32" Nullable="false" />
+          <Property Name="Intelligence" Type="Int32" Nullable="false" />
+          <Property Name="Agility" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="Ninja">
           <Key>
@@ -95,6 +98,9 @@
           <NavigationProperty Name="Gear" Relationship="Self.Ninja_Gear" FromRole="Ninja" ToRole="Gear" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Gold" Type="Int32" Nullable="false" />
+          <Property Name="Intelligence" Type="Int32" Nullable="false" />
+          <Property Name="Strength" Type="Int32" Nullable="false" />
+          <Property Name="Agility" Type="Int32" Nullable="false" />
         </EntityType>
         <Association Name="Ninja_Gear">
           <End Role="Gear" Type="Self.Gear" Multiplicity="*" />
@@ -130,6 +136,9 @@
           <EntitySetMapping Name="Ninja">
             <EntityTypeMapping TypeName="LeagueOfNinjasModel.Ninja">
               <MappingFragment StoreEntitySet="Ninja">
+                <ScalarProperty Name="Agility" ColumnName="Agility" />
+                <ScalarProperty Name="Strength" ColumnName="Strength" />
+                <ScalarProperty Name="Intelligence" ColumnName="Intelligence" />
                 <ScalarProperty Name="Gold" ColumnName="Gold" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />

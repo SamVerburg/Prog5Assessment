@@ -17,11 +17,25 @@ namespace LeagueOfNinjas.ViewModel
             this.n = n;
 
             this.InventoryItems = new ObservableCollection<ItemVM>();
-            foreach (Gear g in n.Gear)
-            {
-                InventoryItems.Add(new ItemVM(g));
-            }
 
+            //Retrieve inventory items from database
+            using (var ctx = new LeagueOfNinjasEntities())
+            {
+                Ninja ninja = (from s in ctx.Ninja
+                               where s.Id == n.Id
+                               select s).FirstOrDefault<Ninja>();
+
+
+                var inventoryItems = ninja.Gear.ToList();
+
+                foreach (var item in inventoryItems)
+                {
+                    InventoryItems.Add(new ItemVM(item));
+
+                }
+                ctx.SaveChanges();
+            }
+            n.Strength = n.Strength;
         }
 
         public NinjaVM()
@@ -59,58 +73,48 @@ namespace LeagueOfNinjas.ViewModel
 
         //Statistics
 
+        private int _strength;
         public int Strength
         {
             get
-            {
-                int value = 0;
-                foreach (var i in InventoryItems)
-                {
-                    value += i.Strength;
-                }
-                return value;
-            }
+            { return _strength; }
+
             set
             {
-                Strength = value;
+                _strength = value;
                 OnPropertyChanged("Strength");
             }
         }
 
+
+        private int _agility;
         public int Agility
         {
-            get {
-                int value = 0;
-                foreach (var i in InventoryItems)
-                {
-                    value += i.Agility;
-                }
-                return value;
-            }
+            get
+            { return _agility; }
+            
             set
             {
-                Agility = value;
+                _agility = value;
                 OnPropertyChanged("Agility");
             }
         }
 
 
+
+        private int _intelligence;
         public int Intelligence
         {
-            get {
-                int value = 0;
-                foreach (var i in InventoryItems)
-                {
-                    value += i.Intelligence;
-                }
-                return value;
-            }
+            get
+            { return _intelligence; }
+
             set
             {
-                Intelligence = value;
-                OnPropertyChanged("Intelligence");
+                _intelligence = value;
+                OnPropertyChanged("_intelligence");
             }
         }
+
 
         //IDataErrorInfo
         public string Error
@@ -165,6 +169,8 @@ namespace LeagueOfNinjas.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+
 
     }
 }
