@@ -58,13 +58,17 @@ namespace LeagueOfNinjas.ViewModel
                     //removing item from ninja
                     ninja.Gear.Remove(gear);
                     moneyBack += item.Price;
+
+                    //Update ninja database
                     ninja.Gold += moneyBack;
+                    ninja.Agility = 0;
+                    ninja.Intelligence = 0;
+                    ninja.Strength = 0;
 
                     ctx.SaveChanges();
                 }
                 SelectedNinja.Gold += moneyBack;
             }
-
             SelectedNinja.InventoryItems.Clear();
             SelectedNinja.Intelligence = 0;
             SelectedNinja.Strength = 0;

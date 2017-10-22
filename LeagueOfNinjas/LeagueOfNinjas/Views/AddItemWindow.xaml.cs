@@ -15,31 +15,16 @@ using System.Windows.Shapes;
 namespace LeagueOfNinjas.Views
 {
     /// <summary>
-    /// Interaction logic for ShopWindow.xaml
+    /// Interaction logic for AddItemWindow.xaml
     /// </summary>
-    public partial class ShopWindow : Window
+    public partial class AddItemWindow : Window
     {
-        public ShopWindow()
+        public AddItemWindow()
         {
             InitializeComponent();
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Button_Click_3(object sender, RoutedEventArgs e)
+        private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }

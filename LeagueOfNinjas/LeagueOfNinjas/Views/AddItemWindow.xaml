@@ -1,0 +1,44 @@
+﻿<Window x:Class="LeagueOfNinjas.Views.AddItemWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LeagueOfNinjas.Views"
+        mc:Ignorable="d"
+        Name="AddItem"
+
+        Title="AddItemWindow" Height="300" Width="300"
+    DataContext="{Binding AddItem, Source={StaticResource Locator}}">
+    
+    <Window.Resources>
+        <Style TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip" Value="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=(Validation.Errors).CurrentItem.ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <TextBlock>Category:</TextBlock>
+        <TextBox Text="{Binding Item.Category, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+        
+        <TextBlock>Item Price:</TextBlock>
+        <TextBox Text="{Binding Item.Price, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+
+        <TextBlock>Name:</TextBlock>
+        <TextBox Text="{Binding Item.Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+
+        <TextBlock>Strength:</TextBlock>
+        <TextBox Text="{Binding Item.Strength, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+
+        <TextBlock>Agility:</TextBlock>
+        <TextBox Text="{Binding Item.Agility, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+
+        <TextBlock>Intelligence:</TextBlock>
+        <TextBox Text="{Binding Item.Intelligence, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+
+        <Button Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=AddItem}">Add</Button>
+    </StackPanel>
+
+</Window>

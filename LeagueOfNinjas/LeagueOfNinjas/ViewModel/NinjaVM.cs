@@ -73,44 +73,41 @@ namespace LeagueOfNinjas.ViewModel
 
         //Statistics
 
-        private int _strength;
         public int Strength
         {
             get
-            { return _strength; }
+            { return n.Strength; }
 
             set
             {
-                _strength = value;
+                n.Strength = value;
                 OnPropertyChanged("Strength");
             }
         }
 
 
-        private int _agility;
         public int Agility
         {
             get
-            { return _agility; }
+            { return n.Agility; }
             
             set
             {
-                _agility = value;
+                n.Agility = value;
                 OnPropertyChanged("Agility");
             }
         }
 
 
 
-        private int _intelligence;
         public int Intelligence
         {
             get
-            { return _intelligence; }
+            { return n.Intelligence; }
 
             set
             {
-                _intelligence = value;
+                n.Intelligence = value;
                 OnPropertyChanged("Intelligence");
             }
         }

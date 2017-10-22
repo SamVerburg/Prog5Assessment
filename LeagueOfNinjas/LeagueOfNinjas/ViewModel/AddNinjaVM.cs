@@ -14,7 +14,7 @@ namespace LeagueOfNinjas.ViewModel
     {
         public NinjaVM Ninja { get; set; }
 
-        public ICommand AddCommand { get; set; }
+        public AddNinjaCommand AddCommand { get; set; }
 
         private NinjaListVM _ninjas;
 

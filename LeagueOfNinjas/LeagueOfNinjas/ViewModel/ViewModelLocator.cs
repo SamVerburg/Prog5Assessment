@@ -25,6 +25,7 @@ namespace LeagueOfNinjas.ViewModel
     public class ViewModelLocator
     {
         private NinjaListVM _ninjas;
+        private ShopVM _shopvm;
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
@@ -78,6 +79,15 @@ namespace LeagueOfNinjas.ViewModel
                 return _ninjas;
             }
         }
+
+        public AddItemVM AddItem
+        {
+            get
+            {
+                return new AddItemVM(Shop);
+            }
+        }
+
 
         public NinjaInfoVM NinjaInfo
         {
