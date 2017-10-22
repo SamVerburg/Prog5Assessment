@@ -25,13 +25,14 @@ namespace LeagueOfNinjas.ViewModel
     public class ViewModelLocator
     {
         private NinjaListVM _ninjas;
-        private ShopVM _shopvm;
+        private ShopVM _shop;
         /// <summary>
         /// Initializes a new instance of the ViewModelLocator class.
         /// </summary>
         public ViewModelLocator()
         {
             _ninjas = new NinjaListVM();
+            _shop = new ShopVM(_ninjas);
             ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             ////if (ViewModelBase.IsInDesignModeStatic)
@@ -84,7 +85,7 @@ namespace LeagueOfNinjas.ViewModel
         {
             get
             {
-                return new AddItemVM(Shop);
+                return new AddItemVM(_shop);
             }
         }
 
@@ -109,7 +110,7 @@ namespace LeagueOfNinjas.ViewModel
         {
             get
             {
-                return new ShopVM(_ninjas.SelectedNinja);
+                return _shop;
             }
         }
 

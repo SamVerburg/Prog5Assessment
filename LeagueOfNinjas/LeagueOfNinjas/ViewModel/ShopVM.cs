@@ -40,11 +40,14 @@ namespace LeagueOfNinjas.ViewModel
 
         public ICommand ShowShouldersCategory { get; set; }
 
-        public NinjaVM SelectedNinja { get; set; }
+        public ICommand DeleteItem { get; set; }
 
-        public ShopVM(NinjaVM selectedNinja)
+        private NinjaListVM _ninjaList { get; set; }
+
+        public ShopVM(NinjaListVM ninjaList)
         {
-            this.SelectedNinja = selectedNinja;
+
+            this._ninjaList = ninjaList;
 
             using (var context = new LeagueOfNinjasEntities())
             {
@@ -78,7 +81,7 @@ namespace LeagueOfNinjas.ViewModel
         {
             if (SelectedItem != null)
             {
-                foreach (var item in SelectedNinja.InventoryItems)
+                foreach (var item in _ninjaList.SelectedNinja.InventoryItems)
                 {
                     if (item.Category == SelectedItem.Category)
                     {
@@ -86,7 +89,7 @@ namespace LeagueOfNinjas.ViewModel
                     }
 
                 }
-                if (SelectedNinja.Gold <= SelectedItem.Price)
+                if (_ninjaList.SelectedNinja.Gold <= SelectedItem.Price)
                 {
                     return false;
                 }
@@ -99,20 +102,17 @@ namespace LeagueOfNinjas.ViewModel
         {
             using (var context = new LeagueOfNinjasEntities())
             {
-                Ninja n = context.Ninja.Find(SelectedNinja.ToModel().Id);
+                Ninja n = context.Ninja.Find(_ninjaList.SelectedNinja.ToModel().Id);
                 Gear g = context.Gear.Find(SelectedItem.ToModel().Id);
                 n.Gear.Add(g);
                 n.Gold -= SelectedItem.Price;
                 context.SaveChanges();
             }
-            SelectedNinja.Gold -= SelectedItem.Price;
-            SelectedNinja.InventoryItems.Add(SelectedItem);
-            SelectedNinja.Agility += SelectedItem.Agility;
-            SelectedNinja.Intelligence += SelectedItem.Intelligence;
-            SelectedNinja.Strength += SelectedItem.Strength;
-
-
-
+            _ninjaList.SelectedNinja.Gold -= SelectedItem.Price;
+            _ninjaList. SelectedNinja.InventoryItems.Add(SelectedItem);
+            _ninjaList.SelectedNinja.Agility += SelectedItem.Agility;
+            _ninjaList.SelectedNinja.Intelligence += SelectedItem.Intelligence;
+            _ninjaList.SelectedNinja.Strength += SelectedItem.Strength;
 
         }
 
