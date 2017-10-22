@@ -91,7 +91,10 @@
     <Compile Include="ViewModel\Commands\BuyItemCommand.cs" />
     <Compile Include="ViewModel\Commands\AddNinjaCommand.cs" />
     <Compile Include="ViewModel\Commands\ClearInventoryCommand.cs" />
+    <Compile Include="ViewModel\Commands\DeleteItemCommand.cs" />
+    <Compile Include="ViewModel\Commands\EditItemCommand.cs" />
     <Compile Include="ViewModel\Commands\EditNinjaCommand.cs" />
+    <Compile Include="ViewModel\EditItemVM.cs" />
     <Compile Include="ViewModel\InventoryVM.cs" />
     <Compile Include="ViewModel\ItemVM.cs" />
     <Compile Include="ViewModel\Commands\LogInCommand.cs" />
@@ -102,6 +105,9 @@
     </Compile>
     <Compile Include="Views\AddNinjaWindow.xaml.cs">
       <DependentUpon>AddNinjaWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EditItemWindow.xaml.cs">
+      <DependentUpon>EditItemWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\EditNinjaWindow.xaml.cs">
       <DependentUpon>EditNinjaWindow.xaml</DependentUpon>
@@ -147,6 +153,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddNinjaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EditItemWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

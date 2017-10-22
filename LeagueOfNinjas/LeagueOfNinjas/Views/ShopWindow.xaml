@@ -28,9 +28,10 @@
         <Button Command="{Binding BuyItem}" Content="Buy Item" Margin="-5,231,305,0" Click="Button_Click"/>
         <Label Content="Gold:" HorizontalAlignment="Left" Margin="0,200,0,0" VerticalAlignment="Top"/>
         <Label Content="{Binding SelectedNinja.Gold}" HorizontalAlignment="Left" Margin="43,208,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,2.129"/>
+        
         <Button Command="{Binding ShowAddItemCommand}" Content="Add Item" HorizontalAlignment="Left" Margin="100,240,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Content="Delete Item" HorizontalAlignment="Left" Margin="315,240,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
-        <Button Content="Edit item" HorizontalAlignment="Left" Margin="209,240,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3"/>
+        <Button Command="{Binding DeleteItemCommand}" Content="Delete Item" HorizontalAlignment="Left" Margin="315,240,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
+        <Button Command="{Binding ShowEditItemCommand}" Content="Edit item" HorizontalAlignment="Left" Margin="209,240,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3"/>
 
     </Grid>
 </Window>

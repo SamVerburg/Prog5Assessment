@@ -25,7 +25,7 @@ namespace LeagueOfNinjas.ViewModel
         private bool CanExecuteMethod(object parameter)
         {
             //Checks whether user can add item
-            if (!String.IsNullOrEmpty(Item.Name) && !String.IsNullOrEmpty(Item.Name))
+            if (!String.IsNullOrEmpty(Item.Name) && !String.IsNullOrEmpty(Item.Category))
             {
                 return true;
             }

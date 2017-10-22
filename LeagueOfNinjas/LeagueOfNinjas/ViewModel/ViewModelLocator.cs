@@ -89,6 +89,14 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
+        public EditItemVM EditItem
+        {
+            get
+            {
+                return new EditItemVM(_shop.SelectedItem);
+            }
+        }
+
 
         public NinjaInfoVM NinjaInfo
         {

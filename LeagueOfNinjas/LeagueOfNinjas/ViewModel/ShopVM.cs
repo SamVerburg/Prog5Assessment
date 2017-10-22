@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using LeagueOfNinjas.ViewModel.Commands;
 using LeagueOfNinjas.Views;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,18 @@ namespace LeagueOfNinjas.ViewModel
         public ObservableCollection<ItemVM> ShopItems { get; set; }
         public ObservableCollection<ItemVM> TempShopItems { get; set; }
 
+        private NinjaListVM _ninjaList { get; set; }
+
         public ItemVM SelectedItem { get; set; }
 
         public BuyItemCommand BuyItem { get; set; }
 
         public ICommand ShowAddItemCommand { get; set; }
+
+        public ICommand ShowEditItemCommand { get; set; }
+
+        public DeleteItemCommand DeleteItemCommand { get; set; }
+
 
         //Change tabs
 
@@ -40,9 +48,7 @@ namespace LeagueOfNinjas.ViewModel
 
         public ICommand ShowShouldersCategory { get; set; }
 
-        public ICommand DeleteItem { get; set; }
 
-        private NinjaListVM _ninjaList { get; set; }
 
         public ShopVM(NinjaListVM ninjaList)
         {
@@ -56,8 +62,9 @@ namespace LeagueOfNinjas.ViewModel
                 ShopItems = new ObservableCollection<ItemVM>(gear.Select(g => new ItemVM(g)));
                 TempShopItems = new ObservableCollection<ItemVM>();
             }
-
+            ShowEditItemCommand = new RelayCommand(ShowEditItem);
             ShowAddItemCommand = new RelayCommand(ShowAddItem);
+            DeleteItemCommand = new DeleteItemCommand(DeleteItem, CanDeleteItem);
 
             //Switch tabs
             ShowHeadCategory = new RelayCommand(RetrieveHeadItems);
@@ -68,6 +75,37 @@ namespace LeagueOfNinjas.ViewModel
             ShowShouldersCategory = new RelayCommand(RetrieveShouldersItems);
 
             BuyItem = new BuyItemCommand(ExecuteMethod, CanExecuteMethod);
+        }
+
+        private void ShowEditItem()
+        {
+            var window = new EditItemWindow();
+            window.Show();
+        }
+
+        private void DeleteItem(object parameter)
+        {
+            using (var context = new LeagueOfNinjasEntities())
+            {
+                //  context.Entry(SelectedItem.ToModel().Ninja).State = EntityState.Deleted;
+
+                context.Entry(SelectedItem.ToModel()).State = EntityState.Deleted;
+                //Gear g = context.Gear.Find(SelectedItem.ToModel().Id);
+                //context.Gear.Remove(g);
+
+                context.SaveChanges();
+            }
+            ShopItems.Remove(SelectedItem);
+            TempShopItems.Remove(SelectedItem);
+        }
+
+        private bool CanDeleteItem(object parameter)
+        {
+            if(SelectedItem != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         private void ShowAddItem()
