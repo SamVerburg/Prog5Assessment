@@ -111,7 +111,7 @@ namespace LeagueOfNinjas.ViewModel
             set
             {
                 _intelligence = value;
-                OnPropertyChanged("_intelligence");
+                OnPropertyChanged("Intelligence");
             }
         }
 

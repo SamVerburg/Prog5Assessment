@@ -86,6 +86,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel\Commands\BuyItemCommand.cs" />
     <Compile Include="ViewModel\Commands\AddNinjaCommand.cs" />
     <Compile Include="ViewModel\Commands\ClearInventoryCommand.cs" />
     <Compile Include="ViewModel\Commands\EditNinjaCommand.cs" />

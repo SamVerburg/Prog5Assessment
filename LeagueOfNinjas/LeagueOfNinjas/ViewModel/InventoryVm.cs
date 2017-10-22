@@ -30,8 +30,6 @@ namespace LeagueOfNinjas.ViewModel
 
             ClearInventory = new ClearInventoryCommand(ExecuteMethod, CanExecuteMethod);
 
-            UpdateStats();
-
         }
 
         private bool CanExecuteMethod(object parameter)
@@ -67,24 +65,12 @@ namespace LeagueOfNinjas.ViewModel
                 SelectedNinja.Gold += moneyBack;
             }
 
-          
-
             SelectedNinja.InventoryItems.Clear();
-            UpdateStats();           
-        }
-
-        private void UpdateStats()
-        {
             SelectedNinja.Intelligence = 0;
             SelectedNinja.Strength = 0;
             SelectedNinja.Agility = 0;
-
-            foreach (var i in InventoryItems)
-            {
-                SelectedNinja.Intelligence += i.Intelligence;
-                SelectedNinja.Strength += i.Strength;
-                SelectedNinja.Agility += i.Agility;
-            }
         }
+
+    
     }
 }
