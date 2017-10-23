@@ -21,7 +21,7 @@ namespace LeagueOfNinjas.ViewModel
         public ObservableCollection<ItemVM> ShopItems { get; set; }
         public ObservableCollection<ItemVM> TempShopItems { get; set; }
 
-        private NinjaListVM _ninjaList { get; set; }
+        public NinjaListVM NinjaList { get; set; }
 
         public ItemVM SelectedItem { get; set; }
 
@@ -29,10 +29,8 @@ namespace LeagueOfNinjas.ViewModel
 
         public ICommand ShowAddItemCommand { get; set; }
 
-        public ICommand ShowEditItemCommand { get; set; }
-
         public DeleteItemCommand DeleteItemCommand { get; set; }
-
+        
 
         //Change tabs
 
@@ -48,25 +46,25 @@ namespace LeagueOfNinjas.ViewModel
 
         public ICommand ShowShouldersCategory { get; set; }
 
+        public EditItemCommand EditItem { get; set; }
 
 
         public ShopVM(NinjaListVM ninjaList)
         {
-
-            this._ninjaList = ninjaList;
-
+            this.NinjaList = ninjaList;
             using (var context = new LeagueOfNinjasEntities())
             {
-                var gear = context.Gear.ToList();
+                var gear = context.Gears.ToList();
 
                 ShopItems = new ObservableCollection<ItemVM>(gear.Select(g => new ItemVM(g)));
                 TempShopItems = new ObservableCollection<ItemVM>();
             }
-            ShowEditItemCommand = new RelayCommand(ShowEditItem);
             ShowAddItemCommand = new RelayCommand(ShowAddItem);
             DeleteItemCommand = new DeleteItemCommand(DeleteItem, CanDeleteItem);
 
             //Switch tabs
+
+            EditItem = new EditItemCommand(ShowEditItem, CanEditMethod);
             ShowHeadCategory = new RelayCommand(RetrieveHeadItems);
             ShowLegsCategory = new RelayCommand(RetrieveLegsItems);
             ShowBeltCategory = new RelayCommand(RetrieveBeltItems);
@@ -77,7 +75,7 @@ namespace LeagueOfNinjas.ViewModel
             BuyItem = new BuyItemCommand(ExecuteMethod, CanExecuteMethod);
         }
 
-        private void ShowEditItem()
+        private void ShowEditItem(object parameter)
         {
             var window = new EditItemWindow();
             window.Show();
@@ -85,23 +83,27 @@ namespace LeagueOfNinjas.ViewModel
 
         private void DeleteItem(object parameter)
         {
+            NinjaList.SelectedNinja.InventoryItems.Remove(SelectedItem);
+            NinjaList.SelectedNinja.Gold += SelectedItem.Price;
+
+            ShopItems.Remove(SelectedItem);
             using (var context = new LeagueOfNinjasEntities())
             {
                 //  context.Entry(SelectedItem.ToModel().Ninja).State = EntityState.Deleted;
-
+                context.Entry(NinjaList.SelectedNinja.ToModel()).State = EntityState.Modified;
                 context.Entry(SelectedItem.ToModel()).State = EntityState.Deleted;
                 //Gear g = context.Gear.Find(SelectedItem.ToModel().Id);
                 //context.Gear.Remove(g);
 
                 context.SaveChanges();
             }
-            ShopItems.Remove(SelectedItem);
+
             TempShopItems.Remove(SelectedItem);
         }
 
         private bool CanDeleteItem(object parameter)
         {
-            if(SelectedItem != null)
+            if (SelectedItem != null)
             {
                 return true;
             }
@@ -112,25 +114,32 @@ namespace LeagueOfNinjas.ViewModel
         {
             var window = new AddItemWindow();
             window.Show();
-
         }
 
         private bool CanExecuteMethod(object parameter)
         {
             if (SelectedItem != null)
             {
-                foreach (var item in _ninjaList.SelectedNinja.InventoryItems)
+                foreach (var item in NinjaList.SelectedNinja.InventoryItems)
                 {
                     if (item.Category == SelectedItem.Category)
                     {
                         return false;
                     }
-
                 }
-                if (_ninjaList.SelectedNinja.Gold <= SelectedItem.Price)
+                if (NinjaList.SelectedNinja.Gold < SelectedItem.Price)
                 {
                     return false;
                 }
+                return true;
+            }
+            return false;
+        }
+
+        public bool CanEditMethod(object parameter)
+        {
+            if (SelectedItem != null)
+            {
                 return true;
             }
             return false;
@@ -140,27 +149,21 @@ namespace LeagueOfNinjas.ViewModel
         {
             using (var context = new LeagueOfNinjasEntities())
             {
-                Ninja n = context.Ninja.Find(_ninjaList.SelectedNinja.ToModel().Id);
-                Gear g = context.Gear.Find(SelectedItem.ToModel().Id);
-                n.Gear.Add(g);
+                Ninja n = context.Ninjas.Find(NinjaList.SelectedNinja.ToModel().Id);
+                Gear g = context.Gears.Find(SelectedItem.ToModel().Id);
+                n.Gears.Add(g);
                 n.Gold -= SelectedItem.Price;
                 context.SaveChanges();
             }
-            _ninjaList.SelectedNinja.Gold -= SelectedItem.Price;
-            _ninjaList. SelectedNinja.InventoryItems.Add(SelectedItem);
-            _ninjaList.SelectedNinja.Agility += SelectedItem.Agility;
-            _ninjaList.SelectedNinja.Intelligence += SelectedItem.Intelligence;
-            _ninjaList.SelectedNinja.Strength += SelectedItem.Strength;
-
+            NinjaList.SelectedNinja.Gold -= SelectedItem.Price;
+            NinjaList.SelectedNinja.InventoryItems.Add(SelectedItem);
+            NinjaList.SelectedNinja.UpdateStats();
         }
 
-        private void RetrieveCategoryItems(String categoryName)
+        public void RetrieveCategoryItems(String categoryName)
         {
-            if (TempShopItems.Count > 0)
-            {
-                TempShopItems.Clear();
+            TempShopItems.Clear();
 
-            }
             foreach (var item in ShopItems)
             {
                 if (item.Category.ToLower().Equals(categoryName.ToLower()))
@@ -168,7 +171,6 @@ namespace LeagueOfNinjas.ViewModel
                     TempShopItems.Add(item);
                 }
             }
-
         }
 
         private void RetrieveHeadItems()

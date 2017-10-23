@@ -69,7 +69,7 @@ namespace LeagueOfNinjas.ViewModel
         {
             get
             {
-                return new EditNinjaVM(_ninjas.SelectedNinja, _ninjas);
+                return new EditNinjaVM(_ninjas.SelectedNinja);
             }
         }
 
@@ -93,7 +93,7 @@ namespace LeagueOfNinjas.ViewModel
         {
             get
             {
-                return new EditItemVM(_shop.SelectedItem);
+                return new EditItemVM(_ninjas.SelectedNinja, Shop);
             }
         }
 
@@ -116,10 +116,7 @@ namespace LeagueOfNinjas.ViewModel
 
         public ShopVM Shop
         {
-            get
-            {
-                return _shop;
-            }
+            get { return _shop; }
         }
 
         public static void Cleanup()

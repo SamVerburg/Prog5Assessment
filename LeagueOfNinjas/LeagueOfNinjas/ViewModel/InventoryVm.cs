@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-   public class InventoryVM : ViewModelBase
+    public class InventoryVM : ViewModelBase
     {
         public NinjaVM SelectedNinja;
 
@@ -34,7 +34,7 @@ namespace LeagueOfNinjas.ViewModel
 
         private bool CanExecuteMethod(object parameter)
         {
-            if(SelectedNinja.InventoryItems.Count > 0)
+            if (SelectedNinja.InventoryItems.Count > 0)
             {
                 return true;
             }
@@ -49,21 +49,18 @@ namespace LeagueOfNinjas.ViewModel
             {
                 using (var ctx = new LeagueOfNinjasEntities())
                 {
-                    Ninja ninja = (from n in ctx.Ninja
+                    Ninja ninja = (from n in ctx.Ninjas
                                    where n.Id == id
                                    select n).FirstOrDefault<Ninja>();
 
-                    Gear gear = ninja.Gear.FirstOrDefault<Gear>();
+                    Gear gear = ninja.Gears.FirstOrDefault<Gear>();
 
                     //removing item from ninja
-                    ninja.Gear.Remove(gear);
+                    ninja.Gears.Remove(gear);
                     moneyBack += item.Price;
 
                     //Update ninja database
                     ninja.Gold += moneyBack;
-                    ninja.Agility = 0;
-                    ninja.Intelligence = 0;
-                    ninja.Strength = 0;
 
                     ctx.SaveChanges();
                 }
@@ -75,6 +72,6 @@ namespace LeagueOfNinjas.ViewModel
             SelectedNinja.Agility = 0;
         }
 
-    
+
     }
 }

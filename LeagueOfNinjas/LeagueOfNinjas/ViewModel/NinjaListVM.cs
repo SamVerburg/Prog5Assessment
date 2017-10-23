@@ -41,7 +41,7 @@ namespace LeagueOfNinjas.ViewModel
 
             using (var context = new LeagueOfNinjasEntities())
             {
-                var ninjas = context.Ninja.ToList();
+                var ninjas = context.Ninjas.ToList();
                 Ninjas = new ObservableCollection<NinjaVM>(ninjas.Select(n => new NinjaVM(n)));
             }
 

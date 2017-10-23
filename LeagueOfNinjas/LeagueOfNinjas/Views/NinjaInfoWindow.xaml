@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas.Views"
         mc:Ignorable="d"
-        Title="NinjaInfoWindow" Height="209.816" Width="300"
+        Title="NinjaInfoWindow" SizeToContent="WidthAndHeight" 
          DataContext="{Binding NinjaInfo, Source={StaticResource Locator}}">
     <StackPanel>
         <StackPanel Orientation="Horizontal">

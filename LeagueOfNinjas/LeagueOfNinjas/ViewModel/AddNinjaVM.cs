@@ -39,7 +39,7 @@ namespace LeagueOfNinjas.ViewModel
         {
             using (var context = new LeagueOfNinjasEntities())
             {
-                context.Ninja.Add(Ninja.ToModel());
+                context.Ninjas.Add(Ninja.ToModel());
                 context.SaveChanges();
             }
 

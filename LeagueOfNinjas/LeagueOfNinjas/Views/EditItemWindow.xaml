@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LeagueOfNinjas.Views"
         mc:Ignorable="d"
         Name="EditItem"
-        Title="EditItemWindow" Height="300" Width="300"
+        Title="EditItemWindow" SizeToContent="WidthAndHeight" 
          DataContext="{Binding EditItem, Source={StaticResource Locator}}">
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -18,25 +18,24 @@
         </Style>
     </Window.Resources>
     <StackPanel>
-        <TextBlock>Category:</TextBlock>
-        <TextBox Text="{Binding SelectedItem.Category, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-
+        <ComboBox SelectedItem="{Binding UpdatedCategory}" ItemsSource="{Binding Categories}"></ComboBox>
+            
         <TextBlock>Item Price:</TextBlock>
-        <TextBox Text="{Binding SelectedItem.Price, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Text="{Binding UpdatedPrice, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         <TextBlock>Name:</TextBlock>
-        <TextBox Text="{Binding SelectedItem.Name, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Text="{Binding UpdatedName, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         <TextBlock>Strength:</TextBlock>
-        <TextBox Text="{Binding SelectedItem.Strength, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Text="{Binding UpdatedStrength, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         <TextBlock>Agility:</TextBlock>
-        <TextBox Text="{Binding SelectedItem.Agility, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Text="{Binding UpdatedAgility, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
         <TextBlock>Intelligence:</TextBlock>
-        <TextBox Text="{Binding SelectedItem.Intelligence, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        <TextBox Text="{Binding UpdatedIntelligence, Mode=TwoWay, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-        <Button Command="{Binding EditItem}" CommandParameter="{Binding ElementName=EditItem}">Update</Button>
+        <Button Command="{Binding EditItemCommand}" CommandParameter="{Binding ElementName=EditItem}">Update</Button>
     </StackPanel>
 
 </Window>

@@ -1,6 +1,7 @@
 ﻿using LeagueOfNinjas.ViewModel.Commands;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,12 @@ namespace LeagueOfNinjas.ViewModel
     {
         public AddItemCommand AddCommand { get; set; }
 
-        public ItemVM Item { get; set; }
+        public ItemVM Item { get; set; } =  new ItemVM();
+
+        public ObservableCollection<string> Categories { get; set; } 
+            = new ObservableCollection<string>() {"Chest", "Shoulders", "Belt", "Head", "Boots", "Legs", };
+
+        public string SelectedCategory { get; set; }
 
         private ShopVM _shopVM;
 
@@ -19,13 +25,12 @@ namespace LeagueOfNinjas.ViewModel
         {
             AddCommand = new AddItemCommand(ExecuteMethod, CanExecuteMethod);
             _shopVM = shopvm;
-            Item = new ItemVM();
         }
 
         private bool CanExecuteMethod(object parameter)
         {
             //Checks whether user can add item
-            if (!String.IsNullOrEmpty(Item.Name) && !String.IsNullOrEmpty(Item.Category))
+            if (!String.IsNullOrEmpty(Item.Name) && !String.IsNullOrEmpty(SelectedCategory))
             {
                 return true;
             }
@@ -34,9 +39,10 @@ namespace LeagueOfNinjas.ViewModel
 
         private void ExecuteMethod(object parameter)
         {
+            Item.Category = SelectedCategory;
             using (var context = new LeagueOfNinjasEntities())
             {
-                context.Gear.Add(Item.ToModel());
+                context.Gears.Add(Item.ToModel());
                 context.SaveChanges();
             }
 

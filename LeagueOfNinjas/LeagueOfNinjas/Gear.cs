@@ -17,18 +17,18 @@ namespace LeagueOfNinjas
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Gear()
         {
-            this.Ninja = new HashSet<Ninja>();
+            this.Ninjas = new HashSet<Ninja>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public int Price { get; set; }
         public string Category { get; set; }
-        public int Strength { get; set; }
         public int Intelligence { get; set; }
+        public int Strength { get; set; }
         public int Agility { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Ninja> Ninja { get; set; }
+        public virtual ICollection<Ninja> Ninjas { get; set; }
     }
 }

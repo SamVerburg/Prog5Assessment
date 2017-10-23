@@ -4,7 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="LeagueOfNinjasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LeagueOfNinjasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Gear">
           <Key>
             <PropertyRef Name="Id" />
@@ -24,9 +30,6 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Gold" Type="int" Nullable="false" />
-          <Property Name="Intelligence" Type="int" Nullable="false" />
-          <Property Name="Strength" Type="int" Nullable="false" />
-          <Property Name="Agility" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Ninja_Gear">
           <Key>
@@ -61,6 +64,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="LeagueOfNinjasModelStoreContainer">
+          <EntitySet Name="__RefactorLog" EntityType="Self.__RefactorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gear" EntityType="Self.Gear" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ninja" EntityType="Self.Ninja" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ninja_Gear" EntityType="Self.Ninja_Gear" Schema="dbo" store:Type="Tables" />
@@ -73,45 +77,50 @@
             <End Role="Ninja_Gear" EntitySet="Ninja_Gear" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LeagueOfNinjasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__RefactorLog">
+          <Key>
+            <PropertyRef Name="OperationKey" />
+          </Key>
+          <Property Name="OperationKey" Type="Guid" Nullable="false" />
+        </EntityType>
         <EntityType Name="Gear">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Ninja" Relationship="Self.Ninja_Gear" FromRole="Gear" ToRole="Ninja" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Price" Type="Int32" Nullable="false" />
-          <Property Name="Category" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Strength" Type="Int32" Nullable="false" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Intelligence" Type="Int32" Nullable="false" />
+          <Property Name="Strength" Type="Int32" Nullable="false" />
           <Property Name="Agility" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ninjas" Relationship="Self.Ninja_Gear" FromRole="Gear" ToRole="Ninja" />
         </EntityType>
         <EntityType Name="Ninja">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="Gear" Relationship="Self.Ninja_Gear" FromRole="Ninja" ToRole="Gear" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Gold" Type="Int32" Nullable="false" />
-          <Property Name="Intelligence" Type="Int32" Nullable="false" />
-          <Property Name="Strength" Type="Int32" Nullable="false" />
-          <Property Name="Agility" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gears" Relationship="Self.Ninja_Gear" FromRole="Ninja" ToRole="Gear" />
         </EntityType>
         <Association Name="Ninja_Gear">
           <End Role="Gear" Type="Self.Gear" Multiplicity="*" />
           <End Role="Ninja" Type="Self.Ninja" Multiplicity="*" />
         </Association>
         <EntityContainer Name="LeagueOfNinjasEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Gear" EntityType="Self.Gear" />
-          <EntitySet Name="Ninja" EntityType="Self.Ninja" />
+          <EntitySet Name="C__RefactorLog" EntityType="Self.C__RefactorLog" />
+          <EntitySet Name="Gears" EntityType="Self.Gear" />
+          <EntitySet Name="Ninjas" EntityType="Self.Ninja" />
           <AssociationSet Name="Ninja_Gear" Association="Self.Ninja_Gear">
-            <End Role="Gear" EntitySet="Gear" />
-            <End Role="Ninja" EntitySet="Ninja" />
+            <End Role="Gear" EntitySet="Gears" />
+            <End Role="Ninja" EntitySet="Ninjas" />
           </AssociationSet>
         </EntityContainer>
       </Schema>
@@ -120,28 +129,32 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="LeagueOfNinjasModelStoreContainer" CdmEntityContainer="LeagueOfNinjasEntities">
-          <EntitySetMapping Name="Gear">
-            <EntityTypeMapping TypeName="LeagueOfNinjasModel.Gear">
-              <MappingFragment StoreEntitySet="Gear">
-                <ScalarProperty Name="Agility" ColumnName="Agility" />
-                <ScalarProperty Name="Intelligence" ColumnName="Intelligence" />
-                <ScalarProperty Name="Strength" ColumnName="Strength" />
-                <ScalarProperty Name="Category" ColumnName="Category" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+          <EntitySetMapping Name="C__RefactorLog">
+            <EntityTypeMapping TypeName="LeagueOfNinjasModel.C__RefactorLog">
+              <MappingFragment StoreEntitySet="__RefactorLog">
+                <ScalarProperty Name="OperationKey" ColumnName="OperationKey" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Ninja">
+          <EntitySetMapping Name="Gears">
+            <EntityTypeMapping TypeName="LeagueOfNinjasModel.Gear">
+              <MappingFragment StoreEntitySet="Gear">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Intelligence" ColumnName="Intelligence" />
+                <ScalarProperty Name="Strength" ColumnName="Strength" />
+                <ScalarProperty Name="Agility" ColumnName="Agility" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ninjas">
             <EntityTypeMapping TypeName="LeagueOfNinjasModel.Ninja">
               <MappingFragment StoreEntitySet="Ninja">
-                <ScalarProperty Name="Agility" ColumnName="Agility" />
-                <ScalarProperty Name="Strength" ColumnName="Strength" />
-                <ScalarProperty Name="Intelligence" ColumnName="Intelligence" />
-                <ScalarProperty Name="Gold" ColumnName="Gold" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Gold" ColumnName="Gold" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -167,7 +180,7 @@
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />

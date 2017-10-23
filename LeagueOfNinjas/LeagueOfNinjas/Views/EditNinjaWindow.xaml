@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LeagueOfNinjas"
         mc:Ignorable="d"
         Name ="EditNinja"
-        Title="EditNinjaWindow" Height="139.921" Width="300"
+        Title="EditNinjaWindow" SizeToContent="WidthAndHeight" 
                 DataContext="{Binding EditNinja, Source={StaticResource Locator}}">
     <Window.Resources>
         <Style TargetType="TextBox">
@@ -17,11 +17,11 @@
             </Style.Triggers>
         </Style>
     </Window.Resources>
-    <StackPanel Height="270" VerticalAlignment="Top">
+    <StackPanel VerticalAlignment="Top">
         <TextBlock>Name</TextBlock>
-        <TextBox Text="{Binding SelectedNinja.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+        <TextBox Text="{Binding NewName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
         <TextBlock>Starting gold</TextBlock>
-        <TextBox Text="{Binding SelectedNinja.Gold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
+        <TextBox Text="{Binding NewGold, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"></TextBox>
 
         <Button Command="{Binding UpdateCommand}" CommandParameter="{Binding ElementName=EditNinja}">Update</Button>
     </StackPanel>

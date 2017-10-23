@@ -12,17 +12,19 @@ namespace LeagueOfNinjas.ViewModel
 {
     public class EditNinjaVM : ViewModelBase
     {
-
         public NinjaVM SelectedNinja { get; set; }
 
         public EditNinjaCommand UpdateCommand { get; set; }
 
-        private NinjaListVM _ninjaList;
 
+        public string NewName { get; set; }
 
-        public EditNinjaVM(NinjaVM selectedNinja, NinjaListVM ninjalist)
+        public int NewGold { get; set; }
+
+        public EditNinjaVM(NinjaVM selectedNinja)
         {
-            _ninjaList = ninjalist;
+            NewName = selectedNinja.Name;
+            NewGold = selectedNinja.Gold;
             SelectedNinja = selectedNinja;
             UpdateCommand = new EditNinjaCommand(ExecuteMethod, CanExecuteMethod);
         }
@@ -32,9 +34,9 @@ namespace LeagueOfNinjas.ViewModel
             //Checks whether user can edit ninja
             if (SelectedNinja != null)
             {
-                if (!String.IsNullOrEmpty(SelectedNinja.Name) && SelectedNinja.Gold >0)
+                if (!String.IsNullOrEmpty(NewName) && NewGold > 0)
                 {
-                        return true;
+                    return true;
                 }
             }
             return false;
@@ -42,15 +44,14 @@ namespace LeagueOfNinjas.ViewModel
 
         private void ExecuteMethod(object parameter)
         {
+            SelectedNinja.Name = NewName;
+            SelectedNinja.Gold = NewGold;
             using (var context = new LeagueOfNinjasEntities())
             {
                 context.Entry(SelectedNinja.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
-             
         }
-
-
     }
 }
 

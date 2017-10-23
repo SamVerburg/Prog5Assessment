@@ -100,7 +100,7 @@ namespace LeagueOfNinjas.ViewModel
                 {
                     case "Category":
                         if (string.IsNullOrEmpty(Category))
-                            result = "Name is required!";
+                            result = "Category is required!";
                         break;
 
                     case "Name":

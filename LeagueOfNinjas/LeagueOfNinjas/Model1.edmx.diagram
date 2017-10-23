@@ -4,9 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="2bf684fedbf145b59b655a104bd25feb" Name="Diagram1" ZoomLevel="145">
-        <EntityTypeShape EntityType="LeagueOfNinjasModel.Gear" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="LeagueOfNinjasModel.Ninja" Width="1.5" PointX="4.25" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="4009dec9edde4232a2203575323fa238" Name="Diagram1">
+        <EntityTypeShape EntityType="LeagueOfNinjasModel.C__RefactorLog" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeagueOfNinjasModel.Gear" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LeagueOfNinjasModel.Ninja" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="LeagueOfNinjasModel.Ninja_Gear" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>

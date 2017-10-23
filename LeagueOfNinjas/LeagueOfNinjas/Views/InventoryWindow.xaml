@@ -5,18 +5,18 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas.Views"
         mc:Ignorable="d"
-        Title="InventoryWindow" Height="300" Width="400" 
+        Title="InventoryWindow" SizeToContent="WidthAndHeight" 
         DataContext="{Binding NinjaInventory, Source={StaticResource Locator}}">
     <StackPanel>
         <TextBlock>My Inventory</TextBlock>
         <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding InventoryItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-                <DataGridTextColumn Header="Price" Binding="{Binding Price,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-                <DataGridTextColumn Header="Strength" Binding="{Binding Strength,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-                <DataGridTextColumn Header="Agility" Binding="{Binding Agility,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
-                <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="*" />
+                <DataGridTextColumn Header="Category" Binding="{Binding Category,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                <DataGridTextColumn Header="Name" Binding="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                <DataGridTextColumn Header="Price" Binding="{Binding Price,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                <DataGridTextColumn Header="Strength" Binding="{Binding Strength,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                <DataGridTextColumn Header="Agility" Binding="{Binding Agility,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
+                <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
             </DataGrid.Columns>
         </DataGrid>
 

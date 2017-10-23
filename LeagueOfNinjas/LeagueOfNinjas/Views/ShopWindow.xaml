@@ -5,33 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas.Views"
         mc:Ignorable="d"
-        Title="ShopWindow" Height="300" Width="407.512"
+        Title="ShopWindow" SizeToContent="WidthAndHeight" 
          DataContext="{Binding Shop, Source={StaticResource Locator}}"
         >
-    <Grid>
-        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding TempShopItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="95,0,0,39">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*" />
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*" />
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*" />
-                <DataGridTextColumn Header="Strength" Binding="{Binding Strength, Mode=TwoWay}" Width="*" />
-                <DataGridTextColumn Header="Agility" Binding="{Binding Agility}" Width="*" />
-                <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence}" Width="*" />
-            </DataGrid.Columns>
-        </DataGrid>
-        <Button Command="{Binding ShowBeltCategory}" Content="Belt" Margin="0,127,296,111"/>
-        <Button Command="{Binding ShowBootsCategory}" Content="Boots" Margin="0,159,296,79"/>
-        <Button Command="{Binding ShowChestCategory}" Content="Chest" Margin="0,95,296,143"/>
-        <Button Command="{Binding ShowHeadCategory}" Content="Head" Margin="0,63,296,175"/>
-        <Button Command="{Binding ShowLegsCategory}" Content="Legs" Margin="0,31,296,207" Click="Button_Click_1"/>
-        <Button Command="{Binding ShowShouldersCategory}" Content="Shoulders" Margin="0,0,296,239"/>
-        <Button Command="{Binding BuyItem}" Content="Buy Item" Margin="-5,231,305,0" Click="Button_Click"/>
-        <Label Content="Gold:" HorizontalAlignment="Left" Margin="0,200,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding SelectedNinja.Gold}" HorizontalAlignment="Left" Margin="43,208,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.711,2.129"/>
-        
-        <Button Command="{Binding ShowAddItemCommand}" Content="Add Item" HorizontalAlignment="Left" Margin="100,240,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button Command="{Binding DeleteItemCommand}" Content="Delete Item" HorizontalAlignment="Left" Margin="315,240,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
-        <Button Command="{Binding ShowEditItemCommand}" Content="Edit item" HorizontalAlignment="Left" Margin="209,240,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_3"/>
+    <StackPanel >
+        <StackPanel Orientation="Horizontal">
+            <StackPanel Width="80">
+                <Button Command="{Binding ShowBeltCategory}" Content="Belt"/>
+                <Button Command="{Binding ShowBootsCategory}" Content="Boots"/>
+                <Button Command="{Binding ShowChestCategory}" Content="Chest"/>
+                <Button Command="{Binding ShowHeadCategory}" Content="Head"/>
+                <Button Command="{Binding ShowLegsCategory}" Content="Legs"/>
+                <Button Command="{Binding ShowShouldersCategory}" Content="Shoulders"/>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Gold:"/>
+                    <Label Content="{Binding NinjaList.SelectedNinja.Gold}" Width="40"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <DataGrid IsReadOnly="True" AutoGenerateColumns="False" SelectedItem="{Binding SelectedItem}" ItemsSource="{Binding TempShopItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Category" Binding="{Binding Category}" />
+                            <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                            <DataGridTextColumn Header="Price" Binding="{Binding Price}" />
+                            <DataGridTextColumn Header="Strength" Binding="{Binding Strength, Mode=TwoWay}"/>
+                            <DataGridTextColumn Header="Agility" Binding="{Binding Agility}"/>
+                            <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+                <StackPanel>
+                    
+                </StackPanel>
+                
+            </StackPanel>
 
-    </Grid>
+            <StackPanel Orientation="Vertical">
+
+                <Button Command="{Binding BuyItem}" Content="Buy Item"/>
+                <Button Command="{Binding ShowAddItemCommand}" Content="Add Item"/>
+                <Button Command="{Binding DeleteItemCommand}" Content="Delete Item"/>
+                <Button Command="{Binding EditItem}" Content="Edit item"/>
+
+            </StackPanel>
+        </StackPanel>
+        
+    </StackPanel>
 </Window>
+

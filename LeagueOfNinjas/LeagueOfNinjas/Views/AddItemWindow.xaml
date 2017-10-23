@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Name="AddItem"
 
-        Title="AddItemWindow" Height="300" Width="300"
+        Title="AddItemWindow" SizeToContent="WidthAndHeight" 
     DataContext="{Binding AddItem, Source={StaticResource Locator}}">
     
     <Window.Resources>
@@ -21,8 +21,9 @@
     </Window.Resources>
     <StackPanel>
         <TextBlock>Category:</TextBlock>
-        <TextBox Text="{Binding Item.Category, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+        <ComboBox SelectedItem="{Binding SelectedCategory}" ItemsSource="{Binding Categories}"></ComboBox>
         
+
         <TextBlock>Item Price:</TextBlock>
         <TextBox Text="{Binding Item.Price, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 

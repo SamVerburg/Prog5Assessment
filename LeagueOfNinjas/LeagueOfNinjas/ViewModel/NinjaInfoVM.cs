@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-    public class NinjaInfoVM : ViewModelBase
+    public class NinjaInfoVM : ViewModelBase, INotifyPropertyChanged
     {
         public NinjaVM SelectedNinja { get; set; }
 
@@ -25,7 +25,7 @@ namespace LeagueOfNinjas.ViewModel
 
             ShowInventoryCommand = new RelayCommand(ShowInventoryWindow);
             ShowShopCommand = new RelayCommand(ShowShopWindow);
-            UpdateStats();
+            
         }
 
         //Commands
@@ -41,23 +41,16 @@ namespace LeagueOfNinjas.ViewModel
             window.Show();
         }
 
-        private void UpdateStats()
-        {
-            SelectedNinja.Intelligence = 0;
-            SelectedNinja.Strength = 0;
-            SelectedNinja.Agility = 0;
+        
 
-            foreach (var i in SelectedNinja.InventoryItems)
+        private void OnPropertyChanged(string property)
+        {
+            if (PropertyChanged != null)
             {
-                SelectedNinja.Intelligence += i.Intelligence;
-                SelectedNinja.Strength += i.Strength;
-                SelectedNinja.Agility += i.Agility;
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
             }
         }
 
-
-
-
-
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

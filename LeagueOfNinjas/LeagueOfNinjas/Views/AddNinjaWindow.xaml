@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LeagueOfNinjas"
         mc:Ignorable="d"
         Name="AddNinja"
-        Title="AddNinjaWindow" Height="140.171" Width="216.239"
+        Title="AddNinjaWindow" SizeToContent="WidthAndHeight" 
         DataContext="{Binding AddNinja, Source={StaticResource Locator}}">
     <Window.Resources>
         <Style TargetType="TextBox">
