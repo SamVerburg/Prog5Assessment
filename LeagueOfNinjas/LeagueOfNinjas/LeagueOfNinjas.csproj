@@ -111,10 +111,10 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\AddItemVM.cs" />
+    <Compile Include="ViewModel\Commands\GenericCommand.cs" />
     <Compile Include="ViewModel\EditItemVM.cs" />
     <Compile Include="ViewModel\InventoryVM.cs" />
     <Compile Include="ViewModel\ItemVM.cs" />
-    <Compile Include="ViewModel\Commands\GenericCommand.cs" />
     <Compile Include="ViewModel\NinjaInfoVM.cs" />
     <Compile Include="ViewModel\ShopVM.cs" />
     <Compile Include="Views\AddItemWindow.xaml.cs">

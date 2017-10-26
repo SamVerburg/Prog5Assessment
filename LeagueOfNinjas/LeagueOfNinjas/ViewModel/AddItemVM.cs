@@ -47,6 +47,7 @@ namespace LeagueOfNinjas.ViewModel
 
             _shopVM.ShopItems.Add(Item);
             _shopVM.TempShopItems.Add(Item);
+            _shopVM.RetrieveCategoryItems(SelectedCategory);
         }
     }
 }

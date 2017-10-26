@@ -13,7 +13,7 @@ namespace LeagueOfNinjas.ViewModel
 {
     public class InventoryVM : ViewModelBase
     {
-        public NinjaVM SelectedNinja { get; set; };
+        public NinjaVM SelectedNinja { get; set; }
 
         public GenericCommand ClearInventoryCommand { get; set; }
 
