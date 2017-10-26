@@ -5,29 +5,26 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
-namespace LeagueOfNinjas.ViewModel.Commands
+namespace LeagueOfNinjas.ViewModel
 {
-    public class EditItemCommand : ICommand
+   public class GenericCommand : ICommand
     {
-        Action<object> executeMethod;
-        Func<object, bool> canexecuteMethod;
-
-
-        public EditItemCommand(Action<object> executeMethod, Func<object, bool> canexecuteMethod)
+        readonly Action<object> _execute;
+        readonly Func<object, bool> _canExecute;
+        public GenericCommand(Action<object> execute, Func<object, bool> canExecute)
         {
-            this.executeMethod = executeMethod;
-            this.canexecuteMethod = canexecuteMethod;
-
+            this._execute = execute;
+            this._canExecute = canExecute;
         }
 
         public bool CanExecute(object parameter)
         {
-            return canexecuteMethod(parameter);
+            return _canExecute(parameter);
         }
 
         public void Execute(object parameter)
         {
-            executeMethod(parameter);
+            _execute(parameter);
         }
 
         public event EventHandler CanExecuteChanged
@@ -37,3 +34,4 @@ namespace LeagueOfNinjas.ViewModel.Commands
         }
     }
 }
+

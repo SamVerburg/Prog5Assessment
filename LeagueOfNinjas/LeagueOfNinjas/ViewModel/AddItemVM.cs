@@ -1,5 +1,4 @@
-﻿using LeagueOfNinjas.ViewModel.Commands;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -10,7 +9,7 @@ namespace LeagueOfNinjas.ViewModel
 {
     public class AddItemVM
     {
-        public AddItemCommand AddCommand { get; set; }
+        public GenericCommand AddCommand { get; set; }
 
         public ItemVM Item { get; set; } =  new ItemVM();
 
@@ -23,7 +22,7 @@ namespace LeagueOfNinjas.ViewModel
 
         public AddItemVM(ShopVM shopvm)
         {
-            AddCommand = new AddItemCommand(ExecuteMethod, CanExecuteMethod);
+            AddCommand = new GenericCommand(ExecuteMethod, CanExecuteMethod);
             _shopVM = shopvm;
         }
 

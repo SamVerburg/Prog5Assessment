@@ -9,12 +9,11 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-   public class AddNinjaVM : ViewModelBase
-
+    public class AddNinjaVM : ViewModelBase
     {
         public NinjaVM Ninja { get; set; }
 
-        public AddNinjaCommand AddCommand { get; set; }
+        public GenericCommand AddCommand { get; set; }
 
         private NinjaListVM _ninjas;
 
@@ -22,20 +21,20 @@ namespace LeagueOfNinjas.ViewModel
         {
             _ninjas = ninjas;
             Ninja = new NinjaVM();
-            AddCommand = new AddNinjaCommand(ExecuteMethod, CanExecuteMethod);
+            AddCommand = new GenericCommand(Add, CanAdd);
         }
 
-        private bool CanExecuteMethod(object parameter)
+        private bool CanAdd(object parameter)
         {
             //Checks whether user can add ninja
-            if (!String.IsNullOrEmpty(Ninja.Name) &&  Ninja.Gold > 0)
+            if (!String.IsNullOrEmpty(Ninja.Name) && Ninja.Gold > 0)
             {
-                    return true;
+                return true;
             }
             return false;
         }
 
-        private void ExecuteMethod(object parameter)
+        private void Add(object parameter)
         {
             using (var context = new LeagueOfNinjasEntities())
             {

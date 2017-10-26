@@ -15,9 +15,9 @@
                 <DataGridTextColumn Header="Gold" Binding="{Binding Gold}" />
             </DataGrid.Columns>
         </DataGrid>
-        <Button Command="{Binding ShowAddNinja}" Content="Add" />
-        <Button Command="{Binding ShowEditNinja}" Content="Edit" />
-        <Button Content="Delete"  Command="{Binding DeleteNinjaCommand}"/>
-        <Button Command="{Binding LogIn}" Content="Log in"/>
+        <Button Command="{Binding ShowAddNinja}" Content="Add"/>
+        <Button Command="{Binding ShowEditNinja}" Content="Edit"/>
+        <Button Command="{Binding DeleteNinjaCommand}" Content="Delete"/>
+        <Button Command="{Binding LoginCommand}" Content="Log in"/>
     </StackPanel>
 </Window>

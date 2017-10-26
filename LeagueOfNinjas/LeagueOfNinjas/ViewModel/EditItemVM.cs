@@ -1,4 +1,4 @@
-﻿using LeagueOfNinjas.ViewModel.Commands;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -49,51 +49,13 @@ namespace LeagueOfNinjas.ViewModel
 
         public void Edit()
         {
-            ItemVM foundItem = null;
-
-            int index = 0;
-            foreach (ItemVM i in _selectedNinja.InventoryItems)
-            {
-                if (i.ToModel().Id == Shop.SelectedItem.ToModel().Id)
-                {
-                    _selectedNinja.InventoryItems[index].Name = UpdatedName;
-                    _selectedNinja.InventoryItems[index].Category = UpdatedCategory;
-                    _selectedNinja.InventoryItems[index].Price = UpdatedPrice;
-                    _selectedNinja.InventoryItems[index].Strength = UpdatedStrength;
-                    _selectedNinja.InventoryItems[index].Intelligence = UpdatedIntelligence;
-                    _selectedNinja.InventoryItems[index].Agility = UpdatedAgility;
-                    _selectedNinja.UpdateStats();
-                    break;
-                }
-                index++;
-            }
-
-            string oldCategory = Shop.SelectedItem.Category;
-            Shop.SelectedItem.Category = UpdatedCategory;
-
-            index = 0;
-            foreach (ItemVM i in Shop.ShopItems)
-            {
-                if (i.ToModel().Id == Shop.SelectedItem.ToModel().Id)
-                {
-                    Shop.ShopItems[index].Name = UpdatedName;
-                    Shop.ShopItems[index].Category = UpdatedCategory;
-                    Shop.ShopItems[index].Price = UpdatedPrice;
-                    Shop.ShopItems[index].Strength = UpdatedStrength;
-                    Shop.ShopItems[index].Intelligence = UpdatedIntelligence;
-                    Shop.ShopItems[index].Agility = UpdatedAgility;
-                    break;
-                }
-                index++;
-            }
-            
             using (var context = new LeagueOfNinjasEntities())
             {
                 context.Entry(Shop.SelectedItem.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
-
-            Shop.RetrieveCategoryItems(oldCategory);
+            _selectedNinja.UpdateItem(Shop.SelectedItem);
+            Shop.UpdateItem(UpdatedCategory);
         }
     }
 }

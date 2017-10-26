@@ -14,8 +14,7 @@ namespace LeagueOfNinjas.ViewModel
     {
         public NinjaVM SelectedNinja { get; set; }
 
-        public EditNinjaCommand UpdateCommand { get; set; }
-
+        public GenericCommand UpdateCommand { get; set; }
 
         public string NewName { get; set; }
 
@@ -26,10 +25,10 @@ namespace LeagueOfNinjas.ViewModel
             NewName = selectedNinja.Name;
             NewGold = selectedNinja.Gold;
             SelectedNinja = selectedNinja;
-            UpdateCommand = new EditNinjaCommand(ExecuteMethod, CanExecuteMethod);
+            UpdateCommand = new GenericCommand(Edit, CanEdit);
         }
 
-        private bool CanExecuteMethod(object parameter)
+        private bool CanEdit(object parameter)
         {
             //Checks whether user can edit ninja
             if (SelectedNinja != null)
@@ -42,7 +41,7 @@ namespace LeagueOfNinjas.ViewModel
             return false;
         }
 
-        private void ExecuteMethod(object parameter)
+        private void Edit(object parameter)
         {
             SelectedNinja.Name = NewName;
             SelectedNinja.Gold = NewGold;
@@ -51,6 +50,7 @@ namespace LeagueOfNinjas.ViewModel
                 context.Entry(SelectedNinja.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
+
         }
     }
 }

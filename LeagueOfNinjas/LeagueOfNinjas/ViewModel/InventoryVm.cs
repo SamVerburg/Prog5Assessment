@@ -1,6 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using LeagueOfNinjas.ViewModel.Commands;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,25 +13,20 @@ namespace LeagueOfNinjas.ViewModel
 {
     public class InventoryVM : ViewModelBase
     {
-        public NinjaVM SelectedNinja;
+        public NinjaVM SelectedNinja { get; set; };
 
-        public ObservableCollection<ItemVM> InventoryItems { get; set; }
-
-
-        public ClearInventoryCommand ClearInventory { get; set; }
+        public GenericCommand ClearInventoryCommand { get; set; }
 
 
         public InventoryVM(NinjaVM selectedNinja)
         {
             SelectedNinja = selectedNinja;
 
-            InventoryItems = SelectedNinja.InventoryItems;
-
-            ClearInventory = new ClearInventoryCommand(ExecuteMethod, CanExecuteMethod);
+            ClearInventoryCommand = new GenericCommand(Clear, CanClear);
 
         }
 
-        private bool CanExecuteMethod(object parameter)
+        private bool CanClear(object parameter)
         {
             if (SelectedNinja.InventoryItems.Count > 0)
             {
@@ -41,7 +35,7 @@ namespace LeagueOfNinjas.ViewModel
             return false;
         }
 
-        private void ExecuteMethod(object parameter)
+        private void Clear(object parameter)
         {
             int moneyBack = 0;
             int id = SelectedNinja.ToModel().Id;
@@ -66,12 +60,18 @@ namespace LeagueOfNinjas.ViewModel
                 }
                 SelectedNinja.Gold += moneyBack;
             }
-            SelectedNinja.InventoryItems.Clear();
-            SelectedNinja.Intelligence = 0;
-            SelectedNinja.Strength = 0;
-            SelectedNinja.Agility = 0;
+            ClearInventory();
         }
 
 
+        public void ClearInventory()
+        {
+            foreach (ItemVM item in SelectedNinja.InventoryItems)
+            {
+                SelectedNinja.Gold += item.Price;
+            }
+            SelectedNinja.InventoryItems.Clear();
+            SelectedNinja.UpdateStats();
+        }
     }
 }

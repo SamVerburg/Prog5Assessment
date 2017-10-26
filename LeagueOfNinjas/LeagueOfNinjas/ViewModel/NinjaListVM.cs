@@ -6,8 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight;
 using System.Windows.Input;
-using GalaSoft.MvvmLight.Command;
 using System.Data.Entity;
+using GalaSoft.MvvmLight.Command;
 using LeagueOfNinjas.Views;
 
 namespace LeagueOfNinjas.ViewModel
@@ -18,11 +18,11 @@ namespace LeagueOfNinjas.ViewModel
 
         public ICommand ShowAddNinja { get; set; }
 
-        public ICommand ShowEditNinja { get; set; }
+        public GenericCommand ShowEditNinja { get; set; }
 
-        public ICommand DeleteNinjaCommand { get; set; }
+        public GenericCommand DeleteNinjaCommand { get; set; }
 
-        public LogInCommand LogIn { get; set; }
+        public GenericCommand LoginCommand { get; set; }
 
         private NinjaVM _selectedNinja;
 
@@ -33,12 +33,12 @@ namespace LeagueOfNinjas.ViewModel
             {
                 _selectedNinja = value;
                 base.RaisePropertyChanged();
+
             }
         }
 
         public NinjaListVM()
         {
-
             using (var context = new LeagueOfNinjasEntities())
             {
                 var ninjas = context.Ninjas.ToList();
@@ -46,12 +46,12 @@ namespace LeagueOfNinjas.ViewModel
             }
 
             ShowAddNinja = new RelayCommand(ShowAddNinjaWindow);
-            ShowEditNinja = new RelayCommand(ShowEditNinjaWindow);
-            DeleteNinjaCommand = new RelayCommand(DeleteNinja);
-            LogIn = new LogInCommand(ExecuteMethod, CanExecuteMethod);
+            ShowEditNinja = new GenericCommand(ShowEditNinjaWindow, CanExecute);
+            DeleteNinjaCommand = new GenericCommand(Delete, CanExecute);
+            LoginCommand = new GenericCommand(Login, CanExecute);
         }
 
-        private void DeleteNinja()
+        private void Delete(object parameter)
         {
             using (var context = new LeagueOfNinjasEntities())
             {
@@ -62,18 +62,16 @@ namespace LeagueOfNinjas.ViewModel
             Ninjas.Remove(SelectedNinja);
         }
 
-        //Validation for logging in
-        private bool CanExecuteMethod(object parameter)
+        public bool CanExecute(object parameter)
         {
             if (SelectedNinja != null)
             {
                 return true;
             }
             return false;
-
         }
 
-        private void ExecuteMethod(object parameter)
+        private void Login(object parameter)
         {
             var window = new NinjaInfoWindow();
             window.Show();
@@ -83,19 +81,12 @@ namespace LeagueOfNinjas.ViewModel
         {
             var window = new AddNinjaWindow();
             window.Show();
-
         }
 
-        private void ShowEditNinjaWindow()
+        private void ShowEditNinjaWindow(object parameter)
         {
             var window = new EditNinjaWindow();
             window.Show();
-
         }
-
-
-
-
-
     }
 }

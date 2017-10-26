@@ -153,6 +153,5 @@ namespace LeagueOfNinjas.ViewModel
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
     }
 }

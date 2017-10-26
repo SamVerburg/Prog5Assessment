@@ -44,10 +44,8 @@ namespace LeagueOfNinjas.ViewModel
             n = new Ninja();
 
             this.InventoryItems = new ObservableCollection<ItemVM>();
-            
+
         }
-
-
 
         public string Name
         {
@@ -70,42 +68,37 @@ namespace LeagueOfNinjas.ViewModel
         }
 
         //Statistics
-
-        private int _strength;
         public int Strength
         {
             get
-            { return _strength; }
+            { return n.Strength; }
 
             set
             {
-                _strength = value;
+                n.Strength = value;
                 OnPropertyChanged("Strength");
             }
         }
 
-        private int _agility;
         public int Agility
         {
             get
-            { return _agility; }
+            { return n.Agility; }
 
             set
             {
-                _agility = value;
+                n.Agility = value;
                 OnPropertyChanged("Agility");
             }
         }
-
-        private int _intelligence;
+        
         public int Intelligence
         {
             get
-            { return _intelligence; }
-
+            { return n.Intelligence; }
             set
             {
-                _intelligence = value;
+                n.Intelligence = value;
                 OnPropertyChanged("Intelligence");
             }
         }
@@ -120,7 +113,6 @@ namespace LeagueOfNinjas.ViewModel
 
             }
         }
-
 
         public string this[string PropertyName]
         {
@@ -143,7 +135,6 @@ namespace LeagueOfNinjas.ViewModel
                             result = "Please enter more than 0 gold";
                         }
                         break;
-
                 }
                 return result;
             }
@@ -168,7 +159,6 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
-
         private void OnPropertyChanged(string property)
         {
             if (PropertyChanged != null)
@@ -179,7 +169,41 @@ namespace LeagueOfNinjas.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        public void RemoveItem(ItemVM selectedItem)
+        {
+            if (this.InventoryItems.Contains(selectedItem))
+            {
+                InventoryItems.Remove(selectedItem);
+                this.Gold += selectedItem.Price;
+                UpdateStats();
+            }
+        }
 
+        public void GiveItem(ItemVM selectedItem)
+        {
+            InventoryItems.Add(selectedItem);
+            this.Gold -= selectedItem.Price;
+            UpdateStats();
+        }
 
+        public void UpdateItem(ItemVM updatedItem)
+        {
+            bool found = false;
+            int counter = 0;
+            foreach (ItemVM item in InventoryItems)
+            {
+                if (item.ToModel().Id == updatedItem.ToModel().Id)
+                {
+                    found = true;
+                    break;
+                }
+                counter++;
+            }
+            if (found)
+            {
+                InventoryItems[counter] = updatedItem;
+                UpdateStats();
+            }
+        }
     }
 }
