@@ -31,13 +31,13 @@
         <TextBox Text="{Binding Item.Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 
         <TextBlock>Strength:</TextBlock>
-        <TextBox Text="{Binding Item.Strength, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+        <TextBox Text="{Binding Strength, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 
         <TextBlock>Agility:</TextBlock>
-        <TextBox Text="{Binding Item.Agility, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+        <TextBox Text="{Binding Agility, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 
         <TextBlock>Intelligence:</TextBlock>
-        <TextBox Text="{Binding Item.Intelligence, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+        <TextBox Text="{Binding Intelligence, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 
         <Button Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=AddItem}">Add</Button>
     </StackPanel>

@@ -14,6 +14,10 @@ namespace LeagueOfNinjas.ViewModel
 
         public ItemVM Item { get; set; } = new ItemVM();
 
+       public string Intelligence { get; set; }
+       public string Agility { get; set; }
+        public string Strength { get; set; }
+
         public ObservableCollection<string> Categories { get; set; }
             = new ObservableCollection<string>() { "Chest", "Shoulders", "Belt", "Head", "Boots", "Legs", };
 
@@ -31,6 +35,17 @@ namespace LeagueOfNinjas.ViewModel
         {
             //Checks whether user can add item
             if (!String.IsNullOrEmpty(Item.Name) && !String.IsNullOrEmpty(SelectedCategory))
+                if (isInteger(Intelligence) && isInteger(Agility) && isInteger(Strength))
+                {
+                    return true;
+                }
+            return false;
+        }
+
+        private bool isInteger(String value)
+        {
+            int temp = 0;
+            if (int.TryParse(value, out temp))
             {
                 return true;
             }
@@ -39,7 +54,12 @@ namespace LeagueOfNinjas.ViewModel
 
         private void ExecuteMethod(object parameter)
         {
+            
             Item.Category = SelectedCategory;
+            Item.Intelligence = Convert.ToInt32(Intelligence);
+            Item.Agility = Convert.ToInt32(Agility);
+            Item.Strength = Convert.ToInt32(Strength);
+
             using (var context = new LeagueOfNinjasEntities())
             {
                 context.Gears.Add(Item.ToModel());
@@ -49,7 +69,7 @@ namespace LeagueOfNinjas.ViewModel
             _shopVM.ShopItems.Add(Item);
             _shopVM.TempShopItems.Add(Item);
             _shopVM.RetrieveCategoryItems(SelectedCategory);
-            
+
             Item = new ItemVM
             {
                 Category = Item.Category,
