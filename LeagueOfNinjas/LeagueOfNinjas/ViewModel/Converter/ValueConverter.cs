@@ -8,7 +8,7 @@ using LeagueOfNinjas.ViewModel;
 
 namespace LeagueOfNinjas
 {
-    class ValueConverter : IValueConverter
+    public class ValueConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
         {
