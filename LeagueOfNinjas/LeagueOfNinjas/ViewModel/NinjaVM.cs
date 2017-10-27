@@ -91,7 +91,7 @@ namespace LeagueOfNinjas.ViewModel
                 OnPropertyChanged("Agility");
             }
         }
-        
+
         public int Intelligence
         {
             get
@@ -171,15 +171,25 @@ namespace LeagueOfNinjas.ViewModel
 
         public void RemoveItem(ItemVM selectedItem)
         {
-            if (this.InventoryItems.Contains(selectedItem))
+            ItemVM foundItem = null;
+            foreach (ItemVM item in InventoryItems)
             {
-                InventoryItems.Remove(selectedItem);
+                if (item.ToModel().Id == selectedItem.ToModel().Id)
+                {
+                    foundItem = selectedItem;
+                    break;
+                }
+
+            }
+            if (foundItem != null)
+            {
+                InventoryItems.Remove(foundItem);
                 this.Gold += selectedItem.Price;
                 UpdateStats();
             }
         }
 
-        public void GiveItem(ItemVM selectedItem)
+        public void AddItem(ItemVM selectedItem)
         {
             InventoryItems.Add(selectedItem);
             this.Gold -= selectedItem.Price;

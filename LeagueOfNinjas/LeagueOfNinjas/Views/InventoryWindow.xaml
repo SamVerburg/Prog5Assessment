@@ -9,7 +9,7 @@
         DataContext="{Binding NinjaInventory, Source={StaticResource Locator}}">
     <StackPanel>
         <TextBlock>My Inventory</TextBlock>
-        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding InventoryItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        <DataGrid IsReadOnly="True" AutoGenerateColumns="False" ItemsSource="{Binding SelectedNinja.InventoryItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Category" Binding="{Binding Category,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />
                 <DataGridTextColumn Header="Name" Binding="{Binding Name,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  />

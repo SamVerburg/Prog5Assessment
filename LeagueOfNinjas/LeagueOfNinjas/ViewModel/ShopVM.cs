@@ -150,7 +150,7 @@ namespace LeagueOfNinjas.ViewModel
                 n.Gold -= SelectedItem.Price;
                 context.SaveChanges();
             }
-            NinjaList.SelectedNinja.GiveItem(SelectedItem);
+            NinjaList.SelectedNinja.AddItem(SelectedItem);
         }
 
         public void RetrieveCategoryItems(String categoryName)

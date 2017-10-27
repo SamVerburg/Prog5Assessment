@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace LeagueOfNinjas.ViewModel
 {
@@ -11,10 +12,10 @@ namespace LeagueOfNinjas.ViewModel
     {
         public GenericCommand AddCommand { get; set; }
 
-        public ItemVM Item { get; set; } =  new ItemVM();
+        public ItemVM Item { get; set; } = new ItemVM();
 
-        public ObservableCollection<string> Categories { get; set; } 
-            = new ObservableCollection<string>() {"Chest", "Shoulders", "Belt", "Head", "Boots", "Legs", };
+        public ObservableCollection<string> Categories { get; set; }
+            = new ObservableCollection<string>() { "Chest", "Shoulders", "Belt", "Head", "Boots", "Legs", };
 
         public string SelectedCategory { get; set; }
 
@@ -48,6 +49,16 @@ namespace LeagueOfNinjas.ViewModel
             _shopVM.ShopItems.Add(Item);
             _shopVM.TempShopItems.Add(Item);
             _shopVM.RetrieveCategoryItems(SelectedCategory);
+            
+            Item = new ItemVM
+            {
+                Category = Item.Category,
+                Price = Item.Price,
+                Agility = Item.Agility,
+                Intelligence = Item.Intelligence,
+                Strength = Item.Strength,
+                Name = Item.Name
+            };
         }
     }
 }
