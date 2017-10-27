@@ -25,7 +25,7 @@
         
 
         <TextBlock>Item Price:</TextBlock>
-        <TextBox Text="{Binding Item.Price, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+        <TextBox Text="{Binding Price, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 
         <TextBlock>Name:</TextBlock>
         <TextBox Text="{Binding Item.Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>

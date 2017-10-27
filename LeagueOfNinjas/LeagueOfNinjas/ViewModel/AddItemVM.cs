@@ -14,6 +14,7 @@ namespace LeagueOfNinjas.ViewModel
 
         public ItemVM Item { get; set; } = new ItemVM();
 
+        public string Price { get; set; }
        public string Intelligence { get; set; }
        public string Agility { get; set; }
         public string Strength { get; set; }
@@ -35,7 +36,7 @@ namespace LeagueOfNinjas.ViewModel
         {
             //Checks whether user can add item
             if (!String.IsNullOrEmpty(Item.Name) && !String.IsNullOrEmpty(SelectedCategory))
-                if (isInteger(Intelligence) && isInteger(Agility) && isInteger(Strength))
+                if (isInteger(Intelligence) && isInteger(Agility) && isInteger(Strength) && isInteger(Price))
                 {
                     return true;
                 }
@@ -54,7 +55,7 @@ namespace LeagueOfNinjas.ViewModel
 
         private void ExecuteMethod(object parameter)
         {
-            
+            Item.Price = Convert.ToInt32(Price);
             Item.Category = SelectedCategory;
             Item.Intelligence = Convert.ToInt32(Intelligence);
             Item.Agility = Convert.ToInt32(Agility);

@@ -27,28 +27,50 @@ namespace LeagueOfNinjas.ViewModel
 
         public string UpdatedCategory { get; set; }
         public string UpdatedName { get; set; }
-        public int UpdatedPrice { get; set; }
-        public int UpdatedStrength { get; set; }
-        public int UpdatedIntelligence { get; set; }
-        public int UpdatedAgility { get; set; }
+        public string UpdatedPrice { get; set; }
+        public string UpdatedStrength { get; set; }
+        public string UpdatedIntelligence { get; set; }
+        public string UpdatedAgility { get; set; }
         
         public EditItemVM(NinjaVM selectedNinja, ShopVM shop)
         {
-            UpdatedAgility = shop.SelectedItem.Agility;
-            UpdatedName = shop.SelectedItem.Name;
-            UpdatedPrice = shop.SelectedItem.Price;
-            UpdatedStrength = shop.SelectedItem.Strength;
-            UpdatedIntelligence = shop.SelectedItem.Intelligence;
-            UpdatedAgility = shop.SelectedItem.Agility;
 
             this.Shop = shop;
             _selectedNinja = selectedNinja;
             UpdatedCategory = shop.SelectedItem.Category;
-            EditItemCommand = new RelayCommand(Edit);
+            EditItemCommand = new RelayCommand(Edit, CanEdit);
         }
 
-        public void Edit()
+        private bool CanEdit()
         {
+            //Checks whether user can add item
+            if (!String.IsNullOrEmpty(UpdatedName) && !String.IsNullOrEmpty(UpdatedCategory))
+                if (isInteger(UpdatedIntelligence) && isInteger(UpdatedAgility) && isInteger(UpdatedStrength) && isInteger(UpdatedPrice))
+                {
+                    return true;
+                }
+            return false;
+        }
+
+        private bool isInteger(String value)
+        {
+            int temp = 0;
+            if (int.TryParse(value, out temp))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private void Edit()
+        {
+            Shop.SelectedItem.Name = UpdatedName;
+            Shop.SelectedItem.Category = UpdatedCategory;
+            Shop.SelectedItem.Price = Convert.ToInt32(UpdatedPrice);
+            Shop.SelectedItem.Agility = Convert.ToInt32(UpdatedAgility);
+            Shop.SelectedItem.Intelligence = Convert.ToInt32(UpdatedIntelligence);
+            Shop.SelectedItem.Strength = Convert.ToInt32(UpdatedStrength);
+
             using (var context = new LeagueOfNinjasEntities())
             {
                 context.Entry(Shop.SelectedItem.ToModel()).State = EntityState.Modified;
