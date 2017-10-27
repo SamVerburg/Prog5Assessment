@@ -115,19 +115,22 @@ namespace LeagueOfNinjas.ViewModel
                         }
                         break;
                     case "Strength":
-                        if (Strength.ToString().Equals(""))
+                        int temp;
+                        if (!int.TryParse(Strength.ToString(), out temp))
                         {
                             result = "Please enter more than 0 points in Strength";
                         }
                         break;
                     case "Agility":
-                        if (Agility < 1)
+                        temp = 0;
+                        if (!int.TryParse(Agility.ToString(), out temp))
                         {
                             result = "Please enter more than 0 points in Agility";
                         }
                         break;
                     case "Intelligence":
-                        if (Intelligence < 1)
+                        temp = 0;
+                        if (!int.TryParse(Intelligence.ToString(), out temp))
                         {
                             result = "Please enter more than 0 points in Intelligence";
                         }
