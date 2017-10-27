@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,17 +9,21 @@ using LeagueOfNinjas.ViewModel;
 
 namespace LeagueOfNinjas
 {
-    public class ValueConverter : IValueConverter
+    public class ValueConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            return (double)value * 1.8000f + 32;
+            int value = 0;
+            for (int i = 0; i < values.Length; i++)
+            {
+                value += (int) ((double) values[i] / (double) parameter);
+            }
+            return value;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
-            //De convert back is onnodig. 
-            return value;
+            throw new NotImplementedException();
         }
     }
 }

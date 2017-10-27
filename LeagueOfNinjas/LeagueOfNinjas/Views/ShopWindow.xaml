@@ -4,10 +4,14 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas.Views"
+        xmlns:leagueOfNinjas="clr-namespace:LeagueOfNinjas"
         mc:Ignorable="d"
         Title="ShopWindow" SizeToContent="WidthAndHeight" 
          DataContext="{Binding Shop, Source={StaticResource Locator}}"
         >
+    <Window.Resources>
+        <leagueOfNinjas:ValueConverter x:Key="valueConverter" />
+    </Window.Resources>
     <StackPanel >
         <StackPanel Orientation="Horizontal">
             <StackPanel Width="80">
@@ -32,13 +36,23 @@
                             <DataGridTextColumn Header="Strength" Binding="{Binding Strength, Mode=TwoWay}"/>
                             <DataGridTextColumn Header="Agility" Binding="{Binding Agility}"/>
                             <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence}" />
+                            <DataGridTextColumn Header="Value">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding StringFormat="{}{0} x {1} x {2}">
+                                        <Binding Path="Agility"/>
+                                        <Binding Path="Strength"/>
+                                        <Binding Path="Intelligence"/>
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
+                            </DataGridTextColumn>
+
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
                 <StackPanel>
-                    
+
                 </StackPanel>
-                
+
             </StackPanel>
 
             <StackPanel Orientation="Vertical">
@@ -50,7 +64,7 @@
 
             </StackPanel>
         </StackPanel>
-        
+
     </StackPanel>
 </Window>
 
