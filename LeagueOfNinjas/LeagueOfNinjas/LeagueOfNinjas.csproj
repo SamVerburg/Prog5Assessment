@@ -110,6 +110,7 @@
     <Compile Include="Ninja.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ValueConverter.cs" />
     <Compile Include="ViewModel\AddItemVM.cs" />
     <Compile Include="ViewModel\Commands\GenericCommand.cs" />
     <Compile Include="ViewModel\EditItemVM.cs" />
