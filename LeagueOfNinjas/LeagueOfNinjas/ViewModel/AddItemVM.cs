@@ -13,10 +13,9 @@ namespace LeagueOfNinjas.ViewModel
         public GenericCommand AddCommand { get; set; }
 
         public ItemVM Item { get; set; } = new ItemVM();
-
         public string Price { get; set; }
-       public string Intelligence { get; set; }
-       public string Agility { get; set; }
+        public string Intelligence { get; set; }
+        public string Agility { get; set; }
         public string Strength { get; set; }
 
         public ObservableCollection<string> Categories { get; set; }
@@ -28,19 +27,18 @@ namespace LeagueOfNinjas.ViewModel
 
         public AddItemVM(ShopVM shopvm)
         {
-            AddCommand = new GenericCommand(ExecuteMethod, CanExecuteMethod);
+            AddCommand = new GenericCommand(Add, CanAdd);
             _shopVM = shopvm;
         }
 
-        private bool CanExecuteMethod(object parameter)
+        private bool CanAdd(object parameter)
         {
-            //Checks whether user can add item
-            if (!String.IsNullOrEmpty(Item.Name) && !String.IsNullOrEmpty(SelectedCategory))
-                if (isInteger(Intelligence) && isInteger(Agility) && isInteger(Strength) && isInteger(Price))
-                {
-                    return true;
-                }
-            return false;
+            return !string.IsNullOrEmpty(Item.Name)
+                && !string.IsNullOrEmpty(SelectedCategory)
+                && isInteger(Intelligence)
+                && isInteger(Agility)
+                && isInteger(Strength)
+                && isInteger(Price);
         }
 
         private bool isInteger(String value)
@@ -53,7 +51,7 @@ namespace LeagueOfNinjas.ViewModel
             return false;
         }
 
-        private void ExecuteMethod(object parameter)
+        private void Add(object parameter)
         {
             Item.Price = Convert.ToInt32(Price);
             Item.Category = SelectedCategory;
