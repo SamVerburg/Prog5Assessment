@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GalaSoft.MvvmLight;
-using System.Windows.Input;
-using System.Data.Entity;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using LeagueOfNinjas.Views;
+using System.Collections.ObjectModel;
+using System.Data.Entity;
+using System.Linq;
+using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {

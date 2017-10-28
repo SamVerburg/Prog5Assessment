@@ -1,13 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
@@ -28,39 +20,17 @@ namespace LeagueOfNinjas.ViewModel
 
         private bool CanClear(object parameter)
         {
-            if (SelectedNinja.InventoryItems.Count > 0)
-            {
-                return true;
-            }
-            return false;
+            return SelectedNinja.InventoryItems.Count > 0;
         }
 
         private void Clear(object parameter)
         {
-            int moneyBack = 0;
-            int id = SelectedNinja.ToModel().Id;
-            foreach (var item in SelectedNinja.InventoryItems)
+            using (var context = new LeagueOfNinjasEntities())
             {
-                using (var ctx = new LeagueOfNinjasEntities())
-                {
-                    Ninja ninja = (from n in ctx.Ninjas
-                                   where n.Id == id
-                                   select n).FirstOrDefault<Ninja>();
-
-                    Gear gear = ninja.Gears.FirstOrDefault<Gear>();
-
-                    //removing item from ninja
-                    ninja.Gears.Remove(gear);
-                    moneyBack += item.Price;
-
-                    //Update ninja database
-                    ninja.Gold += moneyBack;
-
-                    ctx.SaveChanges();
-                }
-                SelectedNinja.Gold += moneyBack;
+                SelectedNinja.ClearInventory();
+                context.Entry(SelectedNinja.ToModel()).State = EntityState.Modified;
+                context.SaveChanges();
             }
-            ClearInventory();
         }
 
 

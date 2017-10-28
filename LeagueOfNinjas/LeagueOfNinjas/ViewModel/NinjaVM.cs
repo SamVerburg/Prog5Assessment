@@ -2,7 +2,6 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.Entity;
 using System.Linq;
 
 namespace LeagueOfNinjas.ViewModel
@@ -185,6 +184,18 @@ namespace LeagueOfNinjas.ViewModel
                     break;
                 }
             }
+        }
+
+        public void ClearInventory()
+        {
+            foreach (ItemVM item in InventoryItems)
+            {
+                Intelligence -= item.Intelligence;
+                Strength -= item.Strength;
+                Agility -= item.Agility;
+                Gold += item.Price;
+            }
+            InventoryItems.Clear();
         }
 
         public void AddItem(ItemVM selectedItem)
