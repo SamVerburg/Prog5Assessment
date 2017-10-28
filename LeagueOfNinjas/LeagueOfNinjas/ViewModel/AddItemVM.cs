@@ -41,9 +41,9 @@ namespace LeagueOfNinjas.ViewModel
                 && isInteger(Price);
         }
 
-        private bool isInteger(String value)
+        private bool isInteger(string value)
         {
-            int temp = 0;
+            int temp;
             if (int.TryParse(value, out temp))
             {
                 return true;

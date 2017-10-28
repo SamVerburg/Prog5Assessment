@@ -34,7 +34,12 @@ namespace LeagueOfNinjas.ViewModel
         
         public EditItemVM(NinjaVM selectedNinja, ShopVM shop)
         {
-
+            UpdatedAgility = shop.SelectedItem.Agility.ToString();
+            UpdatedName = shop.SelectedItem.Name;
+            UpdatedPrice = shop.SelectedItem.Price.ToString();
+            UpdatedStrength = shop.SelectedItem.Strength.ToString();
+            UpdatedIntelligence = shop.SelectedItem.Intelligence.ToString();
+            UpdatedAgility = shop.SelectedItem.Agility.ToString();
             this.Shop = shop;
             _selectedNinja = selectedNinja;
             UpdatedCategory = shop.SelectedItem.Category;
@@ -43,18 +48,17 @@ namespace LeagueOfNinjas.ViewModel
 
         private bool CanEdit()
         {
-            //Checks whether user can add item
-            if (!String.IsNullOrEmpty(UpdatedName) && !String.IsNullOrEmpty(UpdatedCategory))
-                if (isInteger(UpdatedIntelligence) && isInteger(UpdatedAgility) && isInteger(UpdatedStrength) && isInteger(UpdatedPrice))
-                {
-                    return true;
-                }
-            return false;
+            return !string.IsNullOrEmpty(UpdatedName)
+                   && !string.IsNullOrEmpty(UpdatedCategory)
+                   && isInteger(UpdatedIntelligence)
+                   && isInteger(UpdatedAgility)
+                   && isInteger(UpdatedStrength)
+                   && isInteger(UpdatedPrice);
         }
 
-        private bool isInteger(String value)
+        private bool isInteger(string value)
         {
-            int temp = 0;
+            int temp;
             if (int.TryParse(value, out temp))
             {
                 return true;

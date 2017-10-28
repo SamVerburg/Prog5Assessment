@@ -7,8 +7,7 @@
         xmlns:leagueOfNinjas="clr-namespace:LeagueOfNinjas"
         mc:Ignorable="d"
         Title="ShopWindow" SizeToContent="WidthAndHeight" 
-         DataContext="{Binding Shop, Source={StaticResource Locator}}"
-        >
+         DataContext="{Binding Shop, Source={StaticResource Locator}}">
     <Window.Resources>
         <leagueOfNinjas:ValueConverter x:Key="valueConverter" />
     </Window.Resources>
@@ -38,33 +37,25 @@
                             <DataGridTextColumn Header="Intelligence" Binding="{Binding Intelligence}" />
                             <DataGridTextColumn Header="Value">
                                 <DataGridTextColumn.Binding>
-                                    <MultiBinding StringFormat="{}{0} x {1} x {2}">
+                                    <MultiBinding Converter="{StaticResource valueConverter}">
                                         <Binding Path="Agility"/>
                                         <Binding Path="Strength"/>
                                         <Binding Path="Intelligence"/>
+                                        <Binding Path="Price"/>
                                     </MultiBinding>
                                 </DataGridTextColumn.Binding>
                             </DataGridTextColumn>
-
                         </DataGrid.Columns>
                     </DataGrid>
                 </StackPanel>
-                <StackPanel>
-
-                </StackPanel>
-
             </StackPanel>
-
             <StackPanel Orientation="Vertical">
-
                 <Button Command="{Binding BuyItemCommand}" Content="Buy Item"/>
                 <Button Command="{Binding ShowAddItemCommand}" Content="Add Item"/>
                 <Button Command="{Binding DeleteItemCommand}" Content="Delete Item"/>
                 <Button Command="{Binding EditItem}" Content="Edit item"/>
-
             </StackPanel>
         </StackPanel>
-
     </StackPanel>
 </Window>
 

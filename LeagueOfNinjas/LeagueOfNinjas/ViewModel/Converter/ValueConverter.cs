@@ -13,12 +13,13 @@ namespace LeagueOfNinjas
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            int value = 0;
-            for (int i = 0; i < values.Length; i++)
+            double value = 0;
+            for (int i = 0; i < 3; i++)
             {
-                value += (int) ((double) values[i] / (double) parameter);
+                value += (int)values[i];
             }
-            return value;
+            value = (value / (int) values[3]);
+            return value.ToString("F2");
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
