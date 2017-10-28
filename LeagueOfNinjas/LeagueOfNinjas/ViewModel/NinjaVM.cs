@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 
 namespace LeagueOfNinjas.ViewModel
@@ -157,6 +158,9 @@ namespace LeagueOfNinjas.ViewModel
                 Strength += i.Strength;
                 Agility += i.Agility;
             }
+
+           
+
         }
 
         private void OnPropertyChanged(string property)
@@ -171,21 +175,15 @@ namespace LeagueOfNinjas.ViewModel
 
         public void RemoveItem(ItemVM selectedItem)
         {
-            ItemVM foundItem = null;
             foreach (ItemVM item in InventoryItems)
             {
                 if (item.ToModel().Id == selectedItem.ToModel().Id)
                 {
-                    foundItem = selectedItem;
+                    InventoryItems.Remove(item);
+                    this.Gold += selectedItem.Price;
+                    UpdateStats();
                     break;
                 }
-
-            }
-            if (foundItem != null)
-            {
-                InventoryItems.Remove(foundItem);
-                this.Gold += selectedItem.Price;
-                UpdateStats();
             }
         }
 

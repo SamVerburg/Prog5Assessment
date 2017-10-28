@@ -66,4 +66,7 @@
   <ItemGroup>
     <RefactorLog Include="LeagueOfNinjas.Database.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="LeagueOfNinjas.Database.publish.xml" />
+  </ItemGroup>
 </Project>

@@ -66,10 +66,6 @@ namespace LeagueOfNinjas.ViewModel
 
         public void ClearInventory()
         {
-            foreach (ItemVM item in SelectedNinja.InventoryItems)
-            {
-                SelectedNinja.Gold += item.Price;
-            }
             SelectedNinja.InventoryItems.Clear();
             SelectedNinja.UpdateStats();
         }
