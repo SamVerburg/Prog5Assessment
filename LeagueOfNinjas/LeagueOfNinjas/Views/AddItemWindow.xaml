@@ -28,7 +28,7 @@
         <TextBox Text="{Binding Price, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 
         <TextBlock>Name:</TextBlock>
-        <TextBox Text="{Binding Item.Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
+        <TextBox Text="{Binding Name, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 
         <TextBlock>Strength:</TextBlock>
         <TextBox Text="{Binding Strength, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
@@ -39,7 +39,7 @@
         <TextBlock>Intelligence:</TextBlock>
         <TextBox Text="{Binding Intelligence, Mode=TwoWay, ValidatesOnDataErrors=True}"></TextBox>
 
-        <Button Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=AddItem}">Add</Button>
+        <Button Command="{Binding AddCommand}" CommandParameter="{Binding ElementName=AddItem}" IsCancel="True">Add</Button>
     </StackPanel>
 
 </Window>

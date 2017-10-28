@@ -7,7 +7,7 @@ using System.Windows.Input;
 
 namespace LeagueOfNinjas.ViewModel
 {
-   public class GenericCommand : ICommand
+    public class GenericCommand : ICommand
     {
         readonly Action<object> _execute;
         readonly Func<object, bool> _canExecute;

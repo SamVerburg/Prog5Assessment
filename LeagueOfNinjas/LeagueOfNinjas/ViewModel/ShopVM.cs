@@ -43,7 +43,7 @@ namespace LeagueOfNinjas.ViewModel
 
         public ICommand ShowShouldersCategory { get; set; }
 
-        public GenericCommand EditItem { get; set; }
+        public GenericCommand EditItemCommand { get; set; }
 
         #endregion
         
@@ -63,7 +63,7 @@ namespace LeagueOfNinjas.ViewModel
 
             //Switch tabs
 
-            EditItem = new GenericCommand(ShowEditItem, CanEditMethod);
+            EditItemCommand = new GenericCommand(ShowEditItem, CanEditMethod);
             ShowHeadCategory = new RelayCommand(RetrieveHeadItems);
             ShowLegsCategory = new RelayCommand(RetrieveLegsItems);
             ShowBeltCategory = new RelayCommand(RetrieveBeltItems);
@@ -113,7 +113,7 @@ namespace LeagueOfNinjas.ViewModel
 
         private bool CanBuyItem(object parameter)
         {
-            if (SelectedItem != null)
+            if (SelectedItem != null && NinjaList.SelectedNinja != null)
             {
                 foreach (var item in NinjaList.SelectedNinja.InventoryItems)
                 {
@@ -166,7 +166,7 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
-        public void UpdateItem(string updatedCategory)
+        public void EditItem(string updatedCategory)
         {
             string oldCategory = SelectedItem.Category;
             SelectedItem.Category = updatedCategory;
@@ -180,8 +180,11 @@ namespace LeagueOfNinjas.ViewModel
                 }
                 counter++;
             }
+            ItemVM oldSelectedItem = SelectedItem;
             ShopItems[counter] = SelectedItem;
+
             RetrieveCategoryItems(oldCategory);
+            SelectedItem = oldSelectedItem;
         }
 
         #region Switch Tabs

@@ -53,7 +53,7 @@
                 <Button Command="{Binding BuyItemCommand}" Content="Buy Item"/>
                 <Button Command="{Binding ShowAddItemCommand}" Content="Add Item"/>
                 <Button Command="{Binding DeleteItemCommand}" Content="Delete Item"/>
-                <Button Command="{Binding EditItem}" Content="Edit item"/>
+                <Button Command="{Binding EditItemCommand}" Content="Edit item"/>
             </StackPanel>
         </StackPanel>
     </StackPanel>

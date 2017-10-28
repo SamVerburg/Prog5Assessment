@@ -18,39 +18,42 @@ namespace LeagueOfNinjas.ViewModel
 
         public string NewName { get; set; }
 
-        public int NewGold { get; set; }
+        public string NewGold { get; set; }
 
         public EditNinjaVM(NinjaVM selectedNinja)
         {
             NewName = selectedNinja.Name;
-            NewGold = selectedNinja.Gold;
+            NewGold = selectedNinja.Gold.ToString();
             SelectedNinja = selectedNinja;
             UpdateCommand = new GenericCommand(Edit, CanEdit);
         }
 
-        private bool CanEdit(object parameter)
+        private bool isInteger(string value)
         {
-            //Checks whether user can edit ninja
-            if (SelectedNinja != null)
+            int temp;
+            if (int.TryParse(value, out temp))
             {
-                if (!String.IsNullOrEmpty(NewName) && NewGold > 0)
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
+        }
+
+        private bool CanEdit(object parameter)
+        {
+            return SelectedNinja != null
+                && !String.IsNullOrEmpty(NewName)
+                && isInteger(NewGold);
         }
 
         private void Edit(object parameter)
         {
             SelectedNinja.Name = NewName;
-            SelectedNinja.Gold = NewGold;
+            SelectedNinja.Gold = Convert.ToInt32(NewGold);
             using (var context = new LeagueOfNinjasEntities())
             {
                 context.Entry(SelectedNinja.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
-
         }
     }
 }

@@ -12,16 +12,15 @@ namespace LeagueOfNinjas.ViewModel
     {
         public GenericCommand AddCommand { get; set; }
 
-        public ItemVM Item { get; set; } = new ItemVM();
+        public string Name { get; set; }
         public string Price { get; set; }
         public string Intelligence { get; set; }
         public string Agility { get; set; }
         public string Strength { get; set; }
+        public string SelectedCategory { get; set; }
 
         public ObservableCollection<string> Categories { get; set; }
             = new ObservableCollection<string>() { "Chest", "Shoulders", "Belt", "Head", "Boots", "Legs", };
-
-        public string SelectedCategory { get; set; }
 
         private ShopVM _shopVM;
 
@@ -33,7 +32,7 @@ namespace LeagueOfNinjas.ViewModel
 
         private bool CanAdd(object parameter)
         {
-            return !string.IsNullOrEmpty(Item.Name)
+            return !string.IsNullOrEmpty(Name)
                 && !string.IsNullOrEmpty(SelectedCategory)
                 && isInteger(Intelligence)
                 && isInteger(Agility)
@@ -53,6 +52,8 @@ namespace LeagueOfNinjas.ViewModel
 
         private void Add(object parameter)
         {
+            ItemVM Item = new ItemVM();
+            Item.Name = Name;
             Item.Price = Convert.ToInt32(Price);
             Item.Category = SelectedCategory;
             Item.Intelligence = Convert.ToInt32(Intelligence);
@@ -69,15 +70,12 @@ namespace LeagueOfNinjas.ViewModel
             _shopVM.TempShopItems.Add(Item);
             _shopVM.RetrieveCategoryItems(SelectedCategory);
 
-            Item = new ItemVM
-            {
-                Category = Item.Category,
-                Price = Item.Price,
-                Agility = Item.Agility,
-                Intelligence = Item.Intelligence,
-                Strength = Item.Strength,
-                Name = Item.Name
-            };
+            SelectedCategory = Item.Category;
+            Agility = Item.Agility.ToString();
+            Intelligence = Item.Intelligence.ToString();
+            Strength = Item.Strength.ToString();
+            Price = Item.Price.ToString();
+            Name = Item.Name;
         }
     }
 }

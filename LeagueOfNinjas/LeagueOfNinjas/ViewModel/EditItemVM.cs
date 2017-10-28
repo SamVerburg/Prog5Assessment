@@ -13,12 +13,11 @@ namespace LeagueOfNinjas.ViewModel
 {
     public class EditItemVM
     {
-      public  ICommand EditItemCommand { get; set; }
+        public ICommand EditItemCommand { get; set; }
 
         public ObservableCollection<string> Categories { get; set; }
             = new ObservableCollection<string>() { "Chest", "Shoulders", "Belt", "Head", "Boots", "Legs", };
 
-        
         public ShopVM Shop { get; set; }
 
         private NinjaVM _selectedNinja;
@@ -31,7 +30,7 @@ namespace LeagueOfNinjas.ViewModel
         public string UpdatedStrength { get; set; }
         public string UpdatedIntelligence { get; set; }
         public string UpdatedAgility { get; set; }
-        
+
         public EditItemVM(NinjaVM selectedNinja, ShopVM shop)
         {
             UpdatedAgility = shop.SelectedItem.Agility.ToString();
@@ -40,6 +39,7 @@ namespace LeagueOfNinjas.ViewModel
             UpdatedStrength = shop.SelectedItem.Strength.ToString();
             UpdatedIntelligence = shop.SelectedItem.Intelligence.ToString();
             UpdatedAgility = shop.SelectedItem.Agility.ToString();
+
             this.Shop = shop;
             _selectedNinja = selectedNinja;
             UpdatedCategory = shop.SelectedItem.Category;
@@ -80,8 +80,9 @@ namespace LeagueOfNinjas.ViewModel
                 context.Entry(Shop.SelectedItem.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
+
             _selectedNinja.UpdateItem(Shop.SelectedItem);
-            Shop.UpdateItem(UpdatedCategory);
+            Shop.EditItem(UpdatedCategory);
         }
     }
 }

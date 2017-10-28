@@ -18,7 +18,7 @@ namespace LeagueOfNinjas
             {
                 value += (int)values[i];
             }
-            value = (value / (int) values[3]);
+            value = (value / (int) values[3]) * 10;
             return value.ToString("F2");
         }
 
