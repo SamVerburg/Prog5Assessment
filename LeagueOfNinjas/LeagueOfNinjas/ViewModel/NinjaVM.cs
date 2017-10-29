@@ -19,15 +19,15 @@ namespace LeagueOfNinjas.ViewModel
             using (var ctx = new LeagueOfNinjasEntities())
             {
                 Ninja ninja = (from s in ctx.Ninjas
-                    where s.Id == n.Id
-                    select s).FirstOrDefault<Ninja>();
+                               where s.Id == n.Id
+                               select s).FirstOrDefault<Ninja>();
 
 
                 var inventoryItems = ninja.Gears.ToList();
 
                 foreach (var item in inventoryItems)
-                {
-                    InventoryItems.Add(new ItemVM(item));
+            {
+                InventoryItems.Add(new ItemVM(item));
 
                 }
             }
