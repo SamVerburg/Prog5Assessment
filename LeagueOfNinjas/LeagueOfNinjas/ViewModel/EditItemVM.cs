@@ -68,8 +68,18 @@ namespace LeagueOfNinjas.ViewModel
             Shop.SelectedItem.Intelligence = Convert.ToInt32(UpdatedIntelligence);
             Shop.SelectedItem.Strength = Convert.ToInt32(UpdatedStrength);
 
-            _selectedNinja.UpdateStats();
-            
+            int counter = 0;
+            foreach (var item in _selectedNinja.InventoryItems)
+            {
+                if (item.ToModel().Id == Shop.SelectedItem.ToModel().Id)
+                {
+                    _selectedNinja.InventoryItems[counter] = Shop.SelectedItem;
+                    _selectedNinja.UpdateStats();
+                    break;
+                }
+                counter++;
+            }
+
             using (var context = new LeagueOfNinjasEntities())
             {
                 context.Entry(Shop.SelectedItem.ToModel()).State = EntityState.Modified;
