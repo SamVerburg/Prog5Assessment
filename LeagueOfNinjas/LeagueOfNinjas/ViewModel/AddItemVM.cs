@@ -5,26 +5,27 @@ namespace LeagueOfNinjas.ViewModel
 {
     public class AddItemVM
     {
-        public GenericCommand AddCommand { get; set; }
-
+        #region properties
         public string Name { get; set; }
         public string Price { get; set; }
         public string Intelligence { get; set; }
         public string Agility { get; set; }
         public string Strength { get; set; }
         public string SelectedCategory { get; set; }
+        public GenericCommand AddCommand { get; set; }
 
         public ObservableCollection<string> Categories { get; set; }
             = new ObservableCollection<string>() { "Chest", "Shoulders", "Belt", "Head", "Boots", "Legs", };
 
         private ShopVM _shopVM;
-
+        #endregion
+        
         public AddItemVM(ShopVM shopvm)
         {
             AddCommand = new GenericCommand(Add, CanAdd);
             _shopVM = shopvm;
         }
-
+        
         private bool CanAdd(object parameter)
         {
             return !string.IsNullOrEmpty(Name)

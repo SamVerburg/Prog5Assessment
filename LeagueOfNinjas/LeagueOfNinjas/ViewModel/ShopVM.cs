@@ -77,13 +77,13 @@ namespace LeagueOfNinjas.ViewModel
         private void DeleteItem(object parameter)
         {
             NinjaList.SelectedNinja.RemoveItem(SelectedItem);
-            
             ShopItems.Remove(SelectedItem);
+
             using (var context = new LeagueOfNinjasEntities())
             {
                 context.Entry(NinjaList.SelectedNinja.ToModel()).State = EntityState.Modified;
                 context.Entry(SelectedItem.ToModel()).State = EntityState.Deleted;
-
+                
                 context.SaveChanges();
             }
 
@@ -144,7 +144,7 @@ namespace LeagueOfNinjas.ViewModel
             }
         }
 
-        public void RetrieveCategoryItems(String categoryName)
+        public void RetrieveCategoryItems(string categoryName)
         {
             TempShopItems.Clear();
 
@@ -156,27 +156,7 @@ namespace LeagueOfNinjas.ViewModel
                 }
             }
         }
-
-        public void EditItem(string updatedCategory)
-        {
-            string oldCategory = SelectedItem.Category;
-            SelectedItem.Category = updatedCategory;
-
-            int counter = 0;
-            foreach (ItemVM item in ShopItems)
-            {
-                if (item.ToModel().Id == SelectedItem.ToModel().Id)
-                {
-                    break;
-                }
-                counter++;
-            }
-            ItemVM oldSelectedItem = SelectedItem;
-            ShopItems[counter] = SelectedItem;
-
-            RetrieveCategoryItems(oldCategory);
-            SelectedItem = oldSelectedItem;
-        }
+        
 
         #region Switch Tabs
         private void RetrieveHeadItems()

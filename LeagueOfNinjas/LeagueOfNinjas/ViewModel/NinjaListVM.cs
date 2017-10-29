@@ -18,7 +18,7 @@ namespace LeagueOfNinjas.ViewModel
 
         public GenericCommand DeleteNinjaCommand { get; set; }
 
-        public GenericCommand LoginCommand { get; set; }
+        public GenericCommand SelectNinjaCommand { get; set; }
 
         private NinjaVM _selectedNinja;
 
@@ -29,7 +29,6 @@ namespace LeagueOfNinjas.ViewModel
             {
                 _selectedNinja = value;
                 base.RaisePropertyChanged();
-
             }
         }
 
@@ -44,7 +43,7 @@ namespace LeagueOfNinjas.ViewModel
             ShowAddNinja = new RelayCommand(ShowAddNinjaWindow);
             ShowEditNinja = new GenericCommand(ShowEditNinjaWindow, CanExecute);
             DeleteNinjaCommand = new GenericCommand(Delete, CanExecute);
-            LoginCommand = new GenericCommand(Login, CanExecute);
+            SelectNinjaCommand = new GenericCommand(SelectNinja, CanExecute);
         }
 
         private void Delete(object parameter)
@@ -54,7 +53,6 @@ namespace LeagueOfNinjas.ViewModel
                 context.Entry(SelectedNinja.ToModel()).State = EntityState.Deleted;
                 context.SaveChanges();
             }
-
             Ninjas.Remove(SelectedNinja);
         }
 
@@ -67,7 +65,7 @@ namespace LeagueOfNinjas.ViewModel
             return false;
         }
 
-        private void Login(object parameter)
+        private void SelectNinja(object parameter)
         {
             var window = new NinjaInfoWindow();
             window.Show();

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:LeagueOfNinjas.Views"
         mc:Ignorable="d"
         Name="AddItem"
-
+        ResizeMode="NoResize"
         Title="AddItemWindow" SizeToContent="WidthAndHeight" 
     DataContext="{Binding AddItem, Source={StaticResource Locator}}">
     

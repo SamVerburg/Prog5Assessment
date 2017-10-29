@@ -1,14 +1,15 @@
-﻿
-using GalaSoft.MvvmLight.CommandWpf;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using System;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Windows.Input;
+using Microsoft.CSharp;
 
 namespace LeagueOfNinjas.ViewModel
 {
     public class EditItemVM
     {
+        #region properties
         public ICommand EditItemCommand { get; set; }
 
         public ObservableCollection<string> Categories { get; set; }
@@ -19,13 +20,13 @@ namespace LeagueOfNinjas.ViewModel
         private NinjaVM _selectedNinja;
 
         //Updated Item Info
-
         public string UpdatedCategory { get; set; }
         public string UpdatedName { get; set; }
         public string UpdatedPrice { get; set; }
         public string UpdatedStrength { get; set; }
         public string UpdatedIntelligence { get; set; }
         public string UpdatedAgility { get; set; }
+        #endregion
 
         public EditItemVM(NinjaVM selectedNinja, ShopVM shop)
         {
@@ -46,24 +47,21 @@ namespace LeagueOfNinjas.ViewModel
         {
             return !string.IsNullOrEmpty(UpdatedName)
                    && !string.IsNullOrEmpty(UpdatedCategory)
-                   && isInteger(UpdatedIntelligence)
-                   && isInteger(UpdatedAgility)
-                   && isInteger(UpdatedStrength)
-                   && isInteger(UpdatedPrice);
+                   && IsInteger(UpdatedIntelligence)
+                   && IsInteger(UpdatedAgility)
+                   && IsInteger(UpdatedStrength)
+                   && IsInteger(UpdatedPrice);
         }
 
-        private bool isInteger(string value)
+        private bool IsInteger(string value)
         {
             int temp;
-            if (int.TryParse(value, out temp))
-            {
-                return true;
-            }
-            return false;
+            return int.TryParse(value, out temp);
         }
 
         private void Edit()
         {
+            
             Shop.SelectedItem.Name = UpdatedName;
             Shop.SelectedItem.Category = UpdatedCategory;
             Shop.SelectedItem.Price = Convert.ToInt32(UpdatedPrice);
@@ -71,14 +69,18 @@ namespace LeagueOfNinjas.ViewModel
             Shop.SelectedItem.Intelligence = Convert.ToInt32(UpdatedIntelligence);
             Shop.SelectedItem.Strength = Convert.ToInt32(UpdatedStrength);
 
+            _selectedNinja.UpdateStats();
+            
             using (var context = new LeagueOfNinjasEntities())
             {
                 context.Entry(Shop.SelectedItem.ToModel()).State = EntityState.Modified;
+                context.Entry(_selectedNinja.ToModel()).State = EntityState.Modified;
                 context.SaveChanges();
             }
 
-            _selectedNinja.UpdateItem(Shop.SelectedItem);
-            Shop.EditItem(UpdatedCategory);
+            ItemVM selectedItem = Shop.SelectedItem;
+            Shop.RetrieveCategoryItems(Shop.SelectedItem.Category);
+            Shop.SelectedItem = selectedItem;
         }
     }
 }

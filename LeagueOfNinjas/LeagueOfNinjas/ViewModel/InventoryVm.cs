@@ -32,12 +32,5 @@ namespace LeagueOfNinjas.ViewModel
                 context.SaveChanges();
             }
         }
-
-
-        public void ClearInventory()
-        {
-            SelectedNinja.InventoryItems.Clear();
-            SelectedNinja.UpdateStats();
-        }
     }
 }

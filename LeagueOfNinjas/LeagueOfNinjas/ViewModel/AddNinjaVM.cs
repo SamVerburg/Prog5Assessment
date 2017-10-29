@@ -1,16 +1,21 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
+using System.Data.Entity;
 
 namespace LeagueOfNinjas.ViewModel
 {
     public class AddNinjaVM : ViewModelBase
     {
+        #region properties
+
         public NinjaVM Ninja { get; set; }
 
         public GenericCommand AddCommand { get; set; }
 
         private NinjaListVM _ninjas;
 
+        #endregion
+        
         public AddNinjaVM(NinjaListVM ninjas)
         {
             _ninjas = ninjas;
@@ -20,23 +25,17 @@ namespace LeagueOfNinjas.ViewModel
 
         private bool CanAdd(object parameter)
         {
-            //Checks whether user can add ninja
-            if (!String.IsNullOrEmpty(Ninja.Name) && Ninja.Gold > 0)
-            {
-                return true;
-            }
-            return false;
+            return !string.IsNullOrEmpty(Ninja.Name) && Ninja.Gold > 0;
         }
 
         private void Add(object parameter)
         {
+            _ninjas.Ninjas.Add(Ninja);
             using (var context = new LeagueOfNinjasEntities())
             {
-                context.Ninjas.Add(Ninja.ToModel());
+                context.Entry(Ninja.ToModel()).State = EntityState.Added;
                 context.SaveChanges();
             }
-
-            _ninjas.Ninjas.Add(Ninja);
         }
     }
 }

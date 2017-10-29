@@ -11,32 +11,15 @@ namespace LeagueOfNinjas.ViewModel
         private Ninja n;
 
         public ObservableCollection<ItemVM> InventoryItems { get; set; }
+            = new ObservableCollection<ItemVM>();
 
         public NinjaVM(Ninja n)
         {
             this.n = n;
-
-            this.InventoryItems = new ObservableCollection<ItemVM>();
-
-            //Retrieve inventory items from database
-            using (var ctx = new LeagueOfNinjasEntities())
+            foreach (var item in n.Gears.ToList())
             {
-                Ninja ninja = (from s in ctx.Ninjas
-                               where s.Id == n.Id
-                               select s).FirstOrDefault<Ninja>();
-
-
-                var inventoryItems = ninja.Gears.ToList();
-
-                foreach (var item in inventoryItems)
-                {
-                    InventoryItems.Add(new ItemVM(item));
-
-                }
-                ctx.SaveChanges();
+                InventoryItems.Add(new ItemVM(item));
             }
-
-            UpdateStats();
         }
 
         public NinjaVM()
@@ -145,23 +128,6 @@ namespace LeagueOfNinjas.ViewModel
             return n;
         }
 
-        public void UpdateStats()
-        {
-            Intelligence = 0;
-            Strength = 0;
-            Agility = 0;
-
-            foreach (var i in InventoryItems)
-            {
-                Intelligence += i.Intelligence;
-                Strength += i.Strength;
-                Agility += i.Agility;
-            }
-
-           
-
-        }
-
         private void OnPropertyChanged(string property)
         {
             if (PropertyChanged != null)
@@ -176,13 +142,13 @@ namespace LeagueOfNinjas.ViewModel
         {
             foreach (ItemVM item in InventoryItems)
             {
-                if (item.ToModel().Id == selectedItem.ToModel().Id)
-                {
-                    InventoryItems.Remove(item);
-                    this.Gold += selectedItem.Price;
-                    UpdateStats();
-                    break;
-                }
+                if (item.ToModel().Id != selectedItem.ToModel().Id) continue;
+                Intelligence -= item.Intelligence;
+                Strength -= item.Strength;
+                Agility -= item.Agility;
+                Gold += item.Price;
+                InventoryItems.Remove(item);
+                break;
             }
         }
 
@@ -200,28 +166,23 @@ namespace LeagueOfNinjas.ViewModel
 
         public void AddItem(ItemVM selectedItem)
         {
+            Intelligence += selectedItem.Intelligence;
+            Strength += selectedItem.Strength;
+            Agility += selectedItem.Agility;
+            Gold -= selectedItem.Price;
             InventoryItems.Add(selectedItem);
-            this.Gold -= selectedItem.Price;
-            UpdateStats();
         }
 
-        public void UpdateItem(ItemVM updatedItem)
+        public void UpdateStats()
         {
-            bool found = false;
-            int counter = 0;
-            foreach (ItemVM item in InventoryItems)
+            Intelligence = 0;
+            Strength = 0;
+            Agility = 0;
+            foreach (var i in InventoryItems)
             {
-                if (item.ToModel().Id == updatedItem.ToModel().Id)
-                {
-                    found = true;
-                    break;
-                }
-                counter++;
-            }
-            if (found)
-            {
-                InventoryItems[counter] = updatedItem;
-                UpdateStats();
+                Intelligence += i.Intelligence;
+                Strength += i.Strength;
+                Agility += i.Agility;
             }
         }
     }

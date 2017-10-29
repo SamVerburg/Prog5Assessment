@@ -1,9 +1,11 @@
 ﻿<Window x:Class="LeagueOfNinjas.MainWindow"
+        Name="NinjaList"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LeagueOfNinjas"
+        ResizeMode="NoResize"
         mc:Ignorable="d"
         Title="Ninja list" SizeToContent="WidthAndHeight" 
         DataContext="{Binding Ninjas, Source={StaticResource Locator}}">
@@ -18,6 +20,6 @@
         <Button Command="{Binding ShowAddNinja}" Content="Add"/>
         <Button Command="{Binding ShowEditNinja}" Content="Edit"/>
         <Button Command="{Binding DeleteNinjaCommand}" Content="Delete"/>
-        <Button Command="{Binding LoginCommand}" Content="Log in"/>
+        <Button Command="{Binding SelectNinjaCommand}" Content="Select"/>
     </StackPanel>
 </Window>
