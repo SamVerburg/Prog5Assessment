@@ -25,9 +25,6 @@ namespace LeagueOfNinjas.ViewModel
         public NinjaVM()
         {
             n = new Ninja();
-
-            this.InventoryItems = new ObservableCollection<ItemVM>();
-
         }
 
         public string Name
