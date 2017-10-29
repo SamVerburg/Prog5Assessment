@@ -1,5 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using System.Data.Entity;
+using System.Linq;
 
 namespace LeagueOfNinjas.ViewModel
 {
@@ -25,12 +26,27 @@ namespace LeagueOfNinjas.ViewModel
 
         private void Clear(object parameter)
         {
-            using (var context = new LeagueOfNinjasEntities())
+            int id = SelectedNinja.ToModel().Id;
+            foreach (var item in SelectedNinja.InventoryItems)
             {
-                SelectedNinja.ClearInventory();
-                context.Entry(SelectedNinja.ToModel()).State = EntityState.Modified;
-                context.SaveChanges();
+                using (var ctx = new LeagueOfNinjasEntities())
+                {
+                    Ninja ninja = (from n in ctx.Ninjas
+                        where n.Id == id
+                        select n).FirstOrDefault<Ninja>();
+
+                    Gear gear = ninja.Gears.FirstOrDefault<Gear>();
+                    ninja.Intelligence -= item.Intelligence;
+                    ninja.Strength -= item.Strength;
+                    ninja.Agility -=item.Agility;
+                    ninja.Gold += item.Price;
+
+                    //removing item from ninja
+                    ninja.Gears.Remove(gear);
+                    ctx.SaveChanges();
+                }
             }
+            SelectedNinja.ClearInventory();
         }
     }
 }

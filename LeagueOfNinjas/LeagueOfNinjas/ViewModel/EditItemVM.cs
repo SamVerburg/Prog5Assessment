@@ -61,7 +61,6 @@ namespace LeagueOfNinjas.ViewModel
 
         private void Edit()
         {
-            
             Shop.SelectedItem.Name = UpdatedName;
             Shop.SelectedItem.Category = UpdatedCategory;
             Shop.SelectedItem.Price = Convert.ToInt32(UpdatedPrice);

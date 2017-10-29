@@ -138,10 +138,16 @@ namespace LeagueOfNinjas.ViewModel
         {
             using (var context = new LeagueOfNinjasEntities())
             {
-                NinjaList.SelectedNinja.AddItem(SelectedItem);
-                context.Entry(NinjaList.SelectedNinja.ToModel()).State = EntityState.Modified;
+                Ninja n = context.Ninjas.Find(NinjaList.SelectedNinja.ToModel().Id);
+                Gear g = context.Gears.Find(SelectedItem.ToModel().Id);
+                n.Gears.Add(g);
+                n.Gold -= SelectedItem.Price;
+                n.Intelligence += g.Intelligence;
+                n.Strength += g.Strength;
+                n.Agility += g.Agility;
                 context.SaveChanges();
             }
+            NinjaList.SelectedNinja.AddItem(SelectedItem);
         }
 
         public void RetrieveCategoryItems(string categoryName)

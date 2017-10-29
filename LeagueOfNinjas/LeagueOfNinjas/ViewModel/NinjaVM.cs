@@ -143,11 +143,9 @@ namespace LeagueOfNinjas.ViewModel
             foreach (ItemVM item in InventoryItems)
             {
                 if (item.ToModel().Id != selectedItem.ToModel().Id) continue;
-                Intelligence -= item.Intelligence;
-                Strength -= item.Strength;
-                Agility -= item.Agility;
                 Gold += item.Price;
                 InventoryItems.Remove(item);
+                UpdateStats();
                 break;
             }
         }
@@ -156,21 +154,17 @@ namespace LeagueOfNinjas.ViewModel
         {
             foreach (ItemVM item in InventoryItems)
             {
-                Intelligence -= item.Intelligence;
-                Strength -= item.Strength;
-                Agility -= item.Agility;
                 Gold += item.Price;
             }
             InventoryItems.Clear();
+            UpdateStats();
         }
 
         public void AddItem(ItemVM selectedItem)
         {
-            Intelligence += selectedItem.Intelligence;
-            Strength += selectedItem.Strength;
-            Agility += selectedItem.Agility;
             Gold -= selectedItem.Price;
             InventoryItems.Add(selectedItem);
+            UpdateStats();
         }
 
         public void UpdateStats()
