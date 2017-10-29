@@ -16,9 +16,20 @@ namespace LeagueOfNinjas.ViewModel
         public NinjaVM(Ninja n)
         {
             this.n = n;
-            foreach (var item in n.Gears.ToList())
+            using (var ctx = new LeagueOfNinjasEntities())
             {
-                InventoryItems.Add(new ItemVM(item));
+                Ninja ninja = (from s in ctx.Ninjas
+                               where s.Id == n.Id
+                               select s).FirstOrDefault<Ninja>();
+
+
+                var inventoryItems = ninja.Gears.ToList();
+
+                foreach (var item in inventoryItems)
+                {
+                    InventoryItems.Add(new ItemVM(item));
+
+                }
             }
         }
 
